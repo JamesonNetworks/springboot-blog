@@ -1,0 +1,36 @@
+{
+  "title": "Hello World 2.0 - The Return of JamesonNetworks Blog",
+  "subtitle": "Back in the saddle again",
+  "date": "1464671842228",
+  "markdown" :
+  {
+    "sections": [
+      {
+        "title": "Hello World.",
+        "contents" :
+        [
+          {
+            "type": "paragraph",
+            "content": "Hello World! It has been a long time since I last created an entry for this blog. As a matter of fact, it has been since September 15th, 2014. During this absense, so much has changed in my life. I've been pursuing several different development tracks, career paths, and living an awful lot of life. I've managed to graduate from Graduate School with a masters in Computer Science, and now I finally have some free time to start pursuing some of my passion projects again. So, lucky you! I'm going to resume blogging! "
+          },
+          {
+            "type": "paragraph",
+            "content": "My first entry will be coming out this week. My goal will be to produce at least one blog post per week. I do not know whether I will be able to keep up that pace or not, as I'm planning to do some substantial deep dives into different pieces of technology that I'm working with. When I left this blog, I was dabbling in C#, node.js, and working on writing a package manager which I called Nirohda much like npm, bower, or as of late webpack. Nirohda never caught on and was arguably never as flexible or powerful as the other package managers, however it was a spectacular learning experience that really prepared me for future challenges in my career. Today, several of the technologies I use have change, but the main theme stays the same. Keep it simple!"
+          },
+          {
+            "type": "paragraph",
+            "content": "My current technology stack diverges drastically. At my $dayJob, I'm working as a Magento developer to create eCommerce based solutions. Some of my blog posts will focus on aspects of Magento and the newly minted Magento 2. My first post will be covering aspects of the front end architecture where the documentation is currently lacking. For their front end, Magento 2 heavily leverages knockout and jQuery UI along with the typical Magento-y spin on those technologies. I plan to dive into their intialization of front end assets and step through the process of creating a reusable snippet of javascript. "
+          },
+          {
+            "type": "paragraph",
+            "content": "For hobby projects, I've become quite an evangelist of Spring Boot. If you haven't tried Spring Boot, I highly suggest pulling down a pom.xml from the spring boot io builder and working on created a fat jar of a project. Spring Boot really simplifies the process of setting up a Spring project and leveraging the amazing power that Spring offers developers. The initial commit of this blog serves as a great template for a Spring Boot project. For the front end, I'm currently running Redux/React. Redux is a design paradigm that pushes one directional dataflow and represents the UI as a state machine which is acted on by actions and transitions an application state tree in predictable ways. I'm linking a set of videos that serve as a great introduction to Redux. If you haven't checked out Redux for front end development, you are truly missing out on a new great world of development. "
+          },
+          {
+            "type": "paragraph",
+            "content": "So, it's great to be back online and creating articles! I can't wait for our deep dive of the Magento 2 front end asset pipeline!"
+          }
+        ]
+      }
+    ]
+  }
+}
