@@ -15,8 +15,11 @@ var plugins = [
         inject: 'body' // Inject all scripts into the body (this is the default so you can skip it)
     }),
     new CopyWebpackPlugin([
-        { from: 'pub/', to: '../../../src/main/resources/static/' },
-        { from: 'entries/', to: '../../../src/main/resources/static/entries/' },
+        { from: 'src/images/', to: 'images/' },
+        { from: 'src/images/', to: '../../../src/main/resources/static/images/' },
+        { from: 'pub/bundle.js', to: '../../../src/main/resources/static/' },
+        { from: 'pub/bundle.css', to: '../../../src/main/resources/static/' },
+        { from: 'entries/', to: '../../../src/main/resources/static/entries/' }
     ]),
     new ExtractPlugin('bundle.css'),
     new webpack.optimize.CommonsChunkPlugin({
