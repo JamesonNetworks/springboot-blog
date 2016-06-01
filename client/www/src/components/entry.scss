@@ -7,6 +7,28 @@
     text-indent: 20px;
 }
 
+.entry {
+  padding: 20px;
+
+  h3 {
+    font-size: 32px;
+    font-weight: normal;
+  }
+  .post-title {
+    top: 20px;
+  }
+  .subtitle {
+    top: 105px;
+  }
+  .post-content {
+  }
+  .section-divider-pad {
+    padding-bottom: 20px;
+  }
+  .prettyprint {
+    border-radius: 5px;
+  }
+}
 
 .pln {
   color: #000
