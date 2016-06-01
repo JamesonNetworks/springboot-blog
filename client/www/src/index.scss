@@ -3,37 +3,6 @@
  *
  */
 
-$header-height: 50px;
-
-$pad: 20px;
-
-$black: #000000;
-$white: #FFFFFF;
-
-$yellow: #b58900;
-$orange: #cb4b16;
-$red: #dc322f;
-$magenta: #d33682;
-$violet: #6c71c4;
-$blue: #268bd2;
-$cyan: #2aa198;
-$green: #859900;
-
-$dark-blue: #002b36;
-$less-dark-blue: #073642;
-$gray: #586E75;
-
-$white-header: #fdf6e3;
-$white-subtitle: #839496;
-$white-content: #586e75;
-
-$font-stack-title: 'Oxygen';
-$font-stack-content: 'Source Code Pro', sans-serif;
-$font-stack-logo: 'Alex Brush';
-
-
-$size-subtitle: 24px;
-
 *, *:after, *:before {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -42,6 +11,7 @@ $size-subtitle: 24px;
 
 body {
   margin: 0px;
+  font-family: 'Open Sans', sans-serif;
 }
 
 ul {
@@ -66,53 +36,17 @@ hr {
   select {
     width: 100%;
   }
+  padding-bottom: 20px;
 }
 
 .img-cont {
   margin: 10px;
   padding: 10px;
   border-radius: 7px;
-  background-color: $gray;
 }
 
 .img {
   width:100%;
-}
-
-
-/*
- *  Post CSS
- *
- */
-
-.entry {
-  padding: 10px;
-  border-bottom-right-radius: 7px;
-  border-bottom-left-radius: 7px;
-  margin-bottom: 50px;
-
-  h3 {
-    font-size: 32px;
-    font-weight: normal;
-    font-family: $font-stack-title;
-  }
-  .post-title {
-    top: 20px;
-  }
-  .subtitle {
-    font-family: $font-stack-title;
-    font-size: $size-subtitle;
-    top: 105px;
-  }
-  .post-content {
-    font-family: $font-stack-content;
-  }
-  .section-divider-pad {
-    padding-bottom: 20px;
-  }
-  .prettyprint {
-    border-radius: 5px;
-  }
 }
 
 
