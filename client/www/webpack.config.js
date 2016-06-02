@@ -17,6 +17,7 @@ var plugins = [
     new CopyWebpackPlugin([
         { from: 'src/images/', to: 'images/' },
         { from: 'src/images/', to: '../../../src/main/resources/static/images/' },
+        { from: 'src/images/favicon.ico', to: '../../../src/main/resources/static/' },
         { from: 'pub/bundle.js', to: '../../../src/main/resources/static/' },
         { from: 'pub/bundle.css', to: '../../../src/main/resources/static/' },
         { from: 'entries/', to: '../../../src/main/resources/static/entries/' }

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Menu from '../components/menu.jsx';
-import {fetchEntries, changeEntry} from '../main/actions';
+import {fetchEntries, changeEntry, goBackOne, goForwardOne} from '../main/actions';
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -9,7 +9,14 @@ const mapDispatchToProps = (dispatch) => {
         },
         onChange: (entry) => {
             dispatch(changeEntry(entry))
+        },
+        onLeftArrowClick: () => {
+            dispatch(goBackOne());
+        },
+        onRightArrowClick: () => {
+            dispatch(goForwardOne());
         }
+
     }
 };
 

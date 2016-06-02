@@ -129,10 +129,13 @@ class Entry extends React.Component {
     }
 
     render() {
+        let notFound = () => { return (<div className="entry">No entries found.</div>) }
+        if(!this.props.currentEntry) {
+            return notFound();
+        }
         var entry = this.props.currentEntry;
         if(!entry.title) {
-            entry = 'No Entry Selected';
-            return (<div className="entry">No entries found.</div>)
+            return notFound();
         }
         var date = entry.date;
 

@@ -5,6 +5,9 @@ export const FETCH_ENTRIES = 'FETCH_ENTRIES';
 export const RECIEVE_ENTRIES = 'RECIEVE_ENTRIES';
 export const REQUEST_ENTRIES = 'REQUEST_ENTRIES';
 
+export const GO_BACK_ONE = 'GO_BACK_ONE';
+export const GO_FORWARD_ONE = 'GO_FORWARD_ONE';
+
 export const CHANGE_ENTRY = 'CHANGE_ENTRY';
 
 export function fetchEntries() {
@@ -16,6 +19,18 @@ export function fetchEntries() {
                     dispatch(recieveEntries(json)
                 )
         )
+    }
+}
+
+export function goBackOne() {
+    return {
+        type: GO_BACK_ONE
+    }
+}
+
+export function goForwardOne() {
+    return {
+        type: GO_FORWARD_ONE
     }
 }
 
