@@ -4,7 +4,6 @@ import _ from 'lodash';
 import $ from 'jquery';
 
 require('../main/select.js');
-require('./menu.scss');
 
 class Menu extends React.Component {
     constructor(props) {
@@ -13,6 +12,22 @@ class Menu extends React.Component {
             let entries = this.props.entries;
             let entry = _.filter(entries, (entry) => { return entry.title === title; });
             this.props.onChange(entry[0]);
+        }
+        this.rightArrowClickHandler = (event) => {
+            if(!$(event.currentTarget).hasClass('disable')) {
+                $('.current-article').fadeOut(() => {  
+                    this.props.onRightArrowClick(); 
+                    $('.current-article').fadeIn();
+                });
+            }
+        }
+        this.leftArrowClickHandler = (event) => {
+            if(!$(event.currentTarget).hasClass('disable')) {
+                $('.current-article').fadeOut(() => {  
+                    this.props.onLeftArrowClick(); 
+                    $('.current-article').fadeIn();
+                });
+            }
         }
     }
 
@@ -23,25 +38,29 @@ class Menu extends React.Component {
     }
 
     componentDidUpdate() {
-        var self = this;
-        $('select').mobileSelect({
-            onClose: function(){
-                self.changeHandler($(this).val());
-            }
-        });
     }
 
     render() {
         let entries = this.props.entries;
         let current = this.props.current;
-        let options = _.map(entries.reverse(), (entry) => {
-            return <option value={entry.title}>{entry.title}</option>
+        if(!current) {
+            current = entries[entries.length-1];
+        }
+        if(entries.length < 1) {
+            return (<div className="article-selector"></div>)
+        }
+        let options = _.map(entries, (entry) => {
+            return <li id={entry.date}>{entry.title}</li>
         });
+        let isLastEntry = (entries[entries.length-1].title === current.title);
+        let isFirstEntry = (entries[0].title === current.title);
+        let arrowClass = function(arrowClass, disabled) {
+            return 'arrow arrow-' + arrowClass + ' ' + (disabled ? 'disable' : '');
+        }
         return (
             <div className="article-selector">
-                <select name="select" className="form-control mobileSelect" value={current.title}>
-                    {options}
-                </select>
+                <div className={arrowClass('left', isFirstEntry)} onClick={this.leftArrowClickHandler}><img src="/images/glyphicons/png/glyphicons-601-chevron-up.png" /></div><div className="current-article">{current.title}</div><div className={arrowClass('right', isLastEntry)} onClick={this.rightArrowClickHandler}><img src="/images/glyphicons/png/glyphicons-601-chevron-up.png"/></div>
+                <div className="articles"><ul>{options}</ul></div>
             </div>
         );
     }
