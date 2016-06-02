@@ -1,0 +1,105 @@
+{
+	"title": "Magento 2 Front End Deep Dive",
+	"subtitle": "Navigating the Magento 2 front end architecture",
+	"date": "1464820404012",
+	"markdown" : 
+	{ 
+		"sections": [
+			{
+				"title": "",
+				"contents" : 
+				[
+					{
+						"type": "paragraph",
+						"content": "I want to take a look at the eCommerce platform Magento 2 and talk a little about what you can expect from its front end architecture. Magento 2 represents the latest release of an eCommerce platform for the Magento crew. Among the goals for the platform are using a modern tech stack and streamlining customizations. In these veins, Magento 2 has introduced several changes from Magento 1, especially to the front end architecture and libraries they have decided to include by default. jQuery has been chosen over prototype and a new databinding library has been added called Knockout.js. They've also heavily leveraged RequireJs to facilitate the use of AMD. If you're been around in front end circles, you know that both jQuery and Knockout have been displaced by other technologies, but this is nothing new for front end development. The bleeding edge is generally orders of magnitude ahead of framework infrastructure and constantly changing. If you follow my blog, you know that I myself would rather see Redux/React fill the niche of front end development, however, we go to war with the army we have. So if you are a Magento 2 developer, I'm here to run you through the process of making a reusable front end component and get that bit of functionality to display on the front end (and if you've been running in the Magento 2 circles, you know that this is a feat that is easier said than done)."
+					},
+					{
+						"type": "paragraph",
+						"content": "The first step in creating a reusable Magento 2 component is to recognize the design paradigms that are being used on the front end. We can boil the components that Magento 2 uses into 3 different categories: Magento Special Sauce components, Knockout components, and jQuery-UI widgets (not to be confused with magento widgets."
+					},
+					{
+						"type": "paragraph",
+						"content": "1) Magento Special Sauce Components : The rule of thumb that I have found is when Magento needs to string components together to build advanced functionality, they tend to use their own components extending off of their custom component class (https://github.com/magento/magento2/blob/develop/app/code/Magento/Checkout/view/frontend/web/js/view/registration.js). This extension allows them to compose these types of components together using a jsLayout object (which seems to me to be analogous to the XML merging they do for layout XML). The jsLayout piece is one of the more confusing aspects and honestly I'm still trying to wrap my ahead around exactly how and where to use it. For the most part, I've avoided that model in favor of creating jQuery widgets."
+					},
+					{
+						"type": "paragraph",
+						"content": "2) Knockout Components : Knockout components use knockout js to make calls for specific customer information that doesn't get cached by Magento. While knockout is all over the place on the Magento front end, I've yet to find something I would consider a canonical example of a knockout component that would make for a good example for this blog post. If you are trying to figure out a problem with knockout and magento, I highly recommend first reading the knockout documentation, then installing the knockout.js plugin for Chrome. This will let you inspect areas in the DOM and instantly see what data is bound to the DOM. I haven't messed with knockout components very much for similar reasons the Magento special components, I just don't understand it and haven't seen an example that gives me that 'a ha' moment."
+					},
+					{
+						"type": "paragraph",
+						"content": "3) jQuery-UI widgets: In my mind, the clearest examples of modular pieces of functionality in Magento 2 are derived from the jQuery UI widgets. By integrating with the jQuery UI component lifecycle, Magento 2 provides developers with a very convenient and understandable way to plug their functionality into the front end. An example would be the stock mega menu which leverages jQuery UI and expands on it in order to provide the main navigation menu experience (jQueryUI Base: https://github.com/magento/magento2/blob/develop/lib/web/jquery/jquery-ui-1.9.2.js, Magento custom widget: https://github.com/magento/magento2/blob/develop/lib/web/mage/menu.js). These examples show a widget that is extending off of the UI base widgets and then inserting themselves into the DOM where they need to be. So that brings us to our next step:"
+					}
+				]
+			},
+			{
+				"title": "How the hell do I get my javascript on the page?",
+				"contents":
+				[
+					{
+						"type":"paragraph",
+						"content": "I'm going to dive deeper into the components later on in this post, but for now I want to talk about how you initialize javascript inside of Magento 2 including code examples for what is going on under the hood. Magento 2 has a very unique and Magento specific way to inject javascript on the page. They've introduced a custom DOM attribute called data-mage-init where you can specify a (we'll call them) \"module\" (our jQuery widget) on a particular element on the page. data-mage-init seems to have evolved over time and is represented in the code base in two forms. One is the DOM attribute, the other is a custom script block with the type of <script type=\"text/x-magento-init\">. I'm pointing this out because you will see it done both ways in Magento core modules and it's easy to get confused about what is going on. If you dive into the actual parser for Magento 2's js init steps, you'll actually see the script block for text/x-magento-init get converted into a data-mage-init DOM attribute before it gets processed (converting script tags: https://github.com/magento/magento2/blob/develop/lib/web/mage/apply/scripts.js, data-mage-init processing: https://github.com/magento/magento2/blob/develop/lib/web/mage/apply/main.js). So how do we use this new Magento attribute?"
+					},
+					{
+						"type":"paragraph",
+						"content": "Magento 2 has a short description of what happens for javascript initialization (http://devdocs.magento.com/guides/v2.0/javascript-dev-guide/javascript/js_init.html), but in my opinion they don't go into enough detail to really get a Magento developer off of the ground. For this exercise, we are going to assume that you already have a module in place, and that your module is functioning in Magento 2. From here, we need to create a folder called view/frontend/web/js/ inside of our module. This is where we will put our javascript component. We will create a file called click.js. Click is going to handle an element being clicked on, and dispatch an alert to give the user a pop up window that says Hello World. I create my widget using the jQuery UI widget factory and taking advantage of the provided component lifecycle (http://api.jqueryui.com/jQuery.widget/)."
+					},
+					{
+						"type": "code",
+						"content" : "define([\'jquery\'], function($) {\r\n    \"use strict\";\r\n\r\n    $.widget(\'ui.click\', {\r\n        options: {\r\n        },\r\n        _create: function () {\r\n            this.element.on(\'click\', function(event) { alert(\'Hey! I\'m on teh page!) })\r\n        }\r\n    });\r\n\r\n    return {\'myClickWidget\': $.ui.click};\r\n});"
+					},
+					{
+						"type":"paragraph",
+						"content": "It is important to note the _create method which acts as the widgets constructor and the peculiar way in which we must return our jQuery UI widget. The return signature becomes very important in the data-mage-init attribute. Now that we have our widget created, we have to let Magento 2 know that we have defined a widget that we plan on using before we are able to use the widget. We do this by creating a file in the web folder called 'requirejs-config.js'."
+					},
+					{
+						"type": "code",
+						"content": "var config = {\r\n    click: {\r\n        \'*\': {\r\n            \'myClickWidget\': \'MyCompany_MyModule\/js\/click\'\r\n        }\r\n    }\r\n};"
+					},
+					{
+						"type": "paragraph",
+						"content": "So, once we have this file, Magento 2 is going to recognize that we have a javascript module and we'll be able to use it in our data-mage-init attribute. Whats the trick here? This file's contents are going to be included in a full requirejs-config.js. So, if you have a path wrong or a syntax error or something, when Magento goes to build it's global file, it will leave yours out. So step one to getting js on the page after creating these files is to check the requirejs-config.js file inside of pub/static/_requirejs (and then digging down to your theme). If you don't see it there, try deleting the file and running the content deployment step again. YOUR REQUIREJS FILE MUST APPEAR HERE IN ORDER FOR MAGENTO TO LOAD IT. When you confirm that your entry is there, it's time to create a template file and leverage your new widget."
+					},
+					{
+						"type": "paragraph",
+						"content": "In our front end folder I'm going to make a template called myclicktemplate.phtml. This is the file where I will put my data-mage-init attribute"
+					},
+					{
+						"type": "code",
+						"content": "<div>\r\n\t<div data-mage-init=\'{\"myClickWidget\": {} }\'><\/div>\r\n<\/div>"
+					},
+					{
+						"type": "paragraph",
+						"content": "While I'm going to gloss over getting the block on your particular page, there are numerous posts dedicated to that particular task and its very similar in Magento 2 as it is in Magento 1. If you want more information on that, ping me and eventually I'll work on getting a post dedicated to getting information from a template to the screen, but in the meantime, we'll just pretend that we already did that. Now when I load the page with my widget, a whole bunch of magic is going to happen. Ultimately, what happens is the widget I created gets initialized with this.element equal to the element that I placed the data-mage-init attribute on. Did it work? If it didn't, let's talk through some of the pitfalls that could be occurring."
+					}
+				]
+			},
+			{
+				"title": "Wait, I don't see my javascript. What went wrong?",
+				"contents":
+				[
+					{
+						"type":"paragraph",
+						"content": "Obviously, the first place to look for problems is in Chrome Developer Tools. If you have an exception there, it will give you a great indication of where to start looking. The first pitfall is listed above, files not being included in requirejs-config.js. Assuming that is working, the next place we need to look is inside of main.js (https://github.com/magento/magento2/blob/develop/lib/web/mage/apply/main.js#L22):"
+					},
+					{
+						"type":"code",
+						"content": "function init(el, config, component) {\r\n    require([component], function (fn) {\r\n\r\n        if (typeof fn === \'object\') {\r\n            fn = fn[component].bind(fn);\r\n        }\r\n\r\n        if (_.isFunction(fn)) {\r\n            fn(config, el);\r\n        } else if ($(el)[component]) {\r\n            $(el)[component](config);\r\n        }\r\n    });\r\n}"
+					},
+					{
+						"type": "paragraph",
+						"content": "Here is the 'flux-capacitor' of the data-mage-init attribute. It's what makes initializing widgets possible. Looking at this method is a little confusing at first, but basically anything that is passed to data-mage-init ends up here. If you want to dig into it, place a debugger; statement or a breakpoint on this function and take a look. This method understands three method signatures returned from our js file. The first is the one we care about: jQuery-UI. If you investigate these parameters, it becomes clear why the naming and return types of our js file are so important. They will be used here to determine what actually gets loaded! So if you have a problem in any of those places, this is where you can look to try and resolve it."
+					},
+					{
+						"type": "paragraph",
+						"content": "So, there we have it. This is a run down of a design paradigm that can be reused over and over again in developing for the Magento 2 front end. I wrote this post because I don't feel that Magento has provided us a clear direction and a canonical example of incorporating front end assets in Magento 2 modules. Using this method has several advantages over simply putting <script> blocks into Magento phtml templates. With our javascript in an independent javascript file, we can now lint the js and keep it separated from the particular template implementation we are looking at."
+					},
+					{
+						"type": "paragraph",
+						"content": "In another post, I'll go into some detail about the syntax of data-mage-init and how we can pass properties and settings down to our widget from our php template in order to incorporate framework settings and variables into our js asset."
+					}
+
+				]
+			}
+		]
+	}
+}
