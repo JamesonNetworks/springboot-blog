@@ -41,12 +41,21 @@ export function requestEntries() {
 }
 
 export function recieveEntries(entries) {
-    if(entry.title) {
+    try {
+        if(entry.title) {
+            return {
+                type: RECIEVE_ENTRIES,
+                loading: false,
+                entries: entries,
+                currentEntry: entry
+            }
+        }
+    }
+    catch(e) {
         return {
             type: RECIEVE_ENTRIES,
             loading: false,
-            entries: entries,
-            currentEntry: entry
+            entries: entries
         }
     }
     return {
