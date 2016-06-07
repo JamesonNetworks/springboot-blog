@@ -41,7 +41,7 @@ export function requestEntries() {
 }
 
 export function recieveEntries(entries) {
-    if(entry) {
+    if(entry.title) {
         return {
             type: RECIEVE_ENTRIES,
             loading: false,
