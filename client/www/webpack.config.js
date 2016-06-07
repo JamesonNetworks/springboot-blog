@@ -20,6 +20,7 @@ var plugins = [
         { from: 'src/images/favicon.ico', to: '../../../src/main/resources/static/' },
         { from: 'pub/bundle.js', to: '../../../src/main/resources/static/' },
         { from: 'pub/bundle.css', to: '../../../src/main/resources/static/' },
+        { from: 'pub/index.html', to: '../../../src/main/resources/static/' },
         { from: 'entries/', to: '../../../src/main/resources/static/entries/' }
     ]),
     new ExtractPlugin('bundle.css'),
