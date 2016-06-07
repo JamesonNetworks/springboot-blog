@@ -3,8 +3,6 @@ import ReactDom from 'react-dom';
 import _ from 'lodash';
 import $ from 'jquery';
 
-require('../main/select.js');
-
 class Menu extends React.Component {
     constructor(props) {
         super(props);

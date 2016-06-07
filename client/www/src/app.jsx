@@ -6,6 +6,7 @@ import Entry from './containers/entry-container.jsx';
 import $ from 'jquery';
 
 require('./app.scss');
+require('./main/prettify.js');
 
 class App extends React.Component {
     render() {

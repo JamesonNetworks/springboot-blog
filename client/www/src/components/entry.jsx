@@ -4,7 +4,6 @@ import {getBaseUrl} from '../main/util';
 import $ from 'jquery';
 
 require('./entry.scss');
-require('../main/prettify.js');
 
 var PictureContent = React.createClass({
     render: function() {
