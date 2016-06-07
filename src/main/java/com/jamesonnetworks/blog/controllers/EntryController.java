@@ -112,7 +112,7 @@ public class EntryController {
         ModelAndView entryModelView = new ModelAndView("entry");
         Gson gson = new Gson();
         for(Entry entry : entries) {
-            if(urlerize(entry.getTitle()).compareTo(title) == 0) {
+            if(urlerize(entry.getTitle()).compareTo(urlerize(title)) == 0) {
                 entryModelView.addObject("entry",  gson.toJson(entry));
                 return entryModelView;
             }
