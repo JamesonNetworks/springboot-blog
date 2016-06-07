@@ -13,7 +13,7 @@ export const CHANGE_ENTRY = 'CHANGE_ENTRY';
 export function fetchEntries() {
     return function(dispatch) {
         dispatch(requestEntries());
-        return fetch(getBaseUrl() + 'v1/entries')
+        return fetch(getBaseUrl() + 'entries')
                 .then(response => response.json())
                 .then(json =>
                     dispatch(recieveEntries(json)
@@ -41,6 +41,23 @@ export function requestEntries() {
 }
 
 export function recieveEntries(entries) {
+    try {
+        if(entry.title) {
+            return {
+                type: RECIEVE_ENTRIES,
+                loading: false,
+                entries: entries,
+                currentEntry: entry
+            }
+        }
+    }
+    catch(e) {
+        return {
+            type: RECIEVE_ENTRIES,
+            loading: false,
+            entries: entries
+        }
+    }
     return {
         type: RECIEVE_ENTRIES,
         loading: false,
