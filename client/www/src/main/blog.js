@@ -32,11 +32,20 @@ function blog(state = {
             });
         case RECIEVE_ENTRIES:
             entries = action.entries;
-            return Object.assign({}, state, {
-                loading: action.loading,
-                entries: entries,
-                currentEntry: entries[entries.length-1]
-            });
+            if(action.currentEntry) {
+                return Object.assign({}, state, {
+                    loading: action.loading,
+                    entries: entries,
+                    currentEntry: action.currentEntry
+                });
+            }
+            else {
+                return Object.assign({}, state, {
+                    loading: action.loading,
+                    entries: entries,
+                    currentEntry: entries[entries.length-1]
+                });
+            }
         default:
             return state;
     }
