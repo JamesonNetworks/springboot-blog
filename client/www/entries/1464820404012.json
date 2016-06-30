@@ -45,7 +45,7 @@
 					},
 					{
 						"type": "code",
-						"content" : "define([\'jquery\'], function($) {\r\n    \"use strict\";\r\n\r\n    $.widget(\'ui.click\', {\r\n        options: {\r\n        },\r\n        _create: function () {\r\n            this.element.on(\'click\', function(event) { alert(\'Hey! I\'m on teh page!) })\r\n        }\r\n    });\r\n\r\n    return {\'myClickWidget\': $.ui.click};\r\n});"
+						"content" : "define([\'jquery\'], function($) {\r\n    \"use strict\";\r\n\r\n    $.widget(\'ui.click\', {\r\n        options: {\r\n        },\r\n        _create: function () {\r\n            this.element.on(\'click\', function(event) { alert(\'Hey! I\\'m on teh page!\') })\r\n        }\r\n    });\r\n\r\n    return {\'myClickWidget\': $.ui.click};\r\n});"
 					},
 					{
 						"type":"paragraph",
