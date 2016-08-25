@@ -53,7 +53,7 @@
 					},
 					{
 						"type": "code",
-						"content": "var config = {\r\n    click: {\r\n        \'*\': {\r\n            \'myClickWidget\': \'MyCompany_MyModule\/js\/click\'\r\n        }\r\n    }\r\n};"
+						"content": "var config = {\r\n    map: {\r\n        \'*\': {\r\n            \'myClickWidget\': \'MyCompany_MyModule\/js\/click\'\r\n        }\r\n    }\r\n};"
 					},
 					{
 						"type": "paragraph",
