@@ -1,0 +1,50 @@
+{
+	"title": "Extending Native Magento 2 Javascript Pieces",
+	"subtitle": "Leveraging as much native functionality without copying js files into your theme and incurring that maintenance overhead.",
+	"date": "1473354120998",
+	"markdown" : 
+	{ 
+		"sections": [
+			{
+				"title": "Changes to requirejs-config.js",
+				"contents" : 
+				[
+					{
+						"type": "paragraph",
+						"content": "Have you ever wanted to override native magento 2 functionality and plug into a certain javascript method without interfering with the normal code? This used to be accomplished using the Prototype function .wrap, which would allow you to wrap any function with your own and allow you to both 1) intercept the arguments going to it and 2) intercept the return value coming out of it. However, with the advent of Magento 2 and it's new RequireJS component based structure, it's a little less opaque on how you go about intercepting and injecting your own code. It is, however, still entirely possible!"
+					},
+					{
+						"type": "paragraph",
+						"content": "In order to accomplish our goal, we are going to look at switching out native M2 shipping rates validation rules with our own. The first step is to setup our requirejs-config.js to accurately reflect our substitutions."
+					},
+					{
+						"type": "code",
+						"content": "var config = {\n    map: {\n        '*' : {\n            'Magento_Checkout/js/model/shipping-rates-validation-rules':  'JamesonNetworks_CustomShippingRules/js/model/shipping-rates-validation-rules'\n        },\n        'JamesonNetworks_CustomShippingRules' : {\n             'Magento_Checkout/js/model/shipping-rates-validation-rules': 'Magento_Checkout/js/model/shipping-rates-validation-rules'\n        }\n    }\n};" 
+					},
+                    {
+                        "type": "paragraph",
+                        "content": "There are a couple of neat tricks in this requirejs file. Using the wildcard, we are telling M2 that every module should prefer to use 'JamesonNetworks_CustomShippingRules/js/model/shipping-rates-validation-rules'. However, if we were to leave it at this, our own module would get confused when it needed to actually import the Magento_Checkout native js for our define block in our custom javascript. It would try to read that native block cyclically and throws an error. So, the second step is to map a MORE SPECIFIC selector (namely our JamesonNetworks_CustomShippingRules module) and then in that selector, we define the alias to the checkout rules that we want to use there. Because it is more specific to the module it applies to, ours will actually grab the native code and not try to cyclically grab itself again."
+                    }
+				]
+			},
+			{
+                "title": "Example of the new javascript file inside of my JamesonNetworks_CustomShippingRules module",
+                "contents":
+                [
+                    {
+                        "content": "In our javascript file, we'll pull the native functionality in and then expand on it by extending the object with underscore. In this example, we are adding two fields (street and region_id) to the observable fields for the validation to occur on.",
+                        "type": "paragraph"
+                    },
+                    {
+                        "type": "code",
+                        "content": "define([\n    'underscore',\n    'Magento_Checkout/js/model/shipping-rates-validation-rules'\n], function (_, Component) {\n    \"use strict\";\n    return _.extend({}, Component, {\n        getObservableFields: function() {\n            return _.union(Component.getObservableFields(), ['street', 'region_id']);\n        }\n    });\n});"
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": "Now, we are leveraging all the native code, replacing it with a very narrow piece of our own code, and we haven't had to copy a lot of excess functionality. Easy Peezy!"
+                    }
+                ]
+			}
+		]
+	}
+}
