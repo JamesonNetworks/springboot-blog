@@ -1,4 +1,12 @@
+@import './var.scss';
+
 .footer {
     height: 120px;
     text-align: center;
+}
+
+@media screen and (max-device-width: $breakpoint-phone) {
+    .footer {
+        font-size: 36px;
+    }
 }
