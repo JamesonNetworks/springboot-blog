@@ -60,6 +60,7 @@
     h3 {
         font-size: 32px;
         font-weight: normal;
+        text-align: center;
     }
     .post-title {
     }
@@ -191,9 +192,14 @@ $breakpoint-phone: 414px;
     overflow: scroll;
     .post-content {
       line-height: 60px;
+      overflow: hidden;
     }
     .subtitle {
       line-height: 48px;
+    }
+    .prettyprint {
+      font-size: 44px;
+      line-height: 44px;
     }
   }
 
