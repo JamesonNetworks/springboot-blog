@@ -24,7 +24,8 @@ const mapStateToProps = (state) => {
     return {
         entries: state.blog.entries,
         loading: state.blog.loading,
-        current: state.blog.currentEntry
+        current: state.blog.currentEntry,
+        showArticleList: state.blog.showArticleList
     }
 };
 
