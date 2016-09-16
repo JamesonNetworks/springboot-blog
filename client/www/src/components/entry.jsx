@@ -151,8 +151,11 @@ class Entry extends React.Component {
             }
         }
 
+        let showArticleList = this.props.showArticleList;
+        let className = showArticleList ? "entry hide" : "entry";
+
         return (
-            <div className="entry">
+            <div className={className}>
                 <div className="post-article">
                     <div className="post-field">
                         <div className="subtitle">{entry.subtitle}</div>

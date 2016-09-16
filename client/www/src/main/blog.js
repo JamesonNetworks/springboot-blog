@@ -1,13 +1,24 @@
-import {GO_FORWARD_ONE, GO_BACK_ONE, FETCH_ENTRIES, RECIEVE_ENTRIES, CHANGE_ENTRY} from './actions';
+import {
+    GO_FORWARD_ONE,
+    GO_BACK_ONE,
+    FETCH_ENTRIES,
+    RECIEVE_ENTRIES,
+    CHANGE_ENTRY,
+    ARTICLE_LIST} from './actions';
 
 function blog(state = {
     loading: true,
     entries: [],
-    currentEntry: {}
+    currentEntry: {},
+    showArticleList: false
 }, action) {
     let entries = state.entries;
     let currentIndex;
     switch(action.type) {
+        case ARTICLE_LIST:
+            return Object.assign({}, state, {
+                showArticleList: action.showArticleList
+            })
         case GO_FORWARD_ONE:
             for(var i = 0; i < entries.length; i++) {
                 if(entries[i].title === state.currentEntry.title) {
@@ -28,7 +39,8 @@ function blog(state = {
             });
         case CHANGE_ENTRY:
             return Object.assign({}, state, {
-                currentEntry: action.currentEntry
+                currentEntry: action.currentEntry,
+                showArticleList: action.showArticleList
             });
         case RECIEVE_ENTRIES:
             entries = action.entries;
