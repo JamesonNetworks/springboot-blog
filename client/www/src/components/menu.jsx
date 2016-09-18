@@ -15,12 +15,10 @@ class Menu extends React.Component {
             var entry_date = event.currentTarget.id;
             var entries = this.props.entries;
             var entry = _.filter(entries, (entry) => { return entry.date === entry_date; });
-            fade(function() {
-                self.props.onChange(entry[0]);
-            });
+            self.props.onChange(entry[0]);
         }
         this.titleClickHandler = (event) => {
-            fade(this.props.onTitleClick);
+            this.props.onTitleClick();
         }
     }
 

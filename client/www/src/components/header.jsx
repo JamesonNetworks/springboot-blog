@@ -7,7 +7,7 @@ class Header extends React.Component {
     constructor(props) {
         super(props);
         this.onHeadshotClick = (event) => {
-            fade(this.props.onBackClick);
+            this.props.onBackClick();
         }
     }
 

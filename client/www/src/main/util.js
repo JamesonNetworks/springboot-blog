@@ -13,15 +13,3 @@ export function getBaseUrl() {
         return '/';
     }
 }
-
-export function fade(callback) {
-    if($(TOOLBAR).is(':visible')) {
-        $(TOOLBAR).addClass('hide');
-        $(ENTRY).removeClass('hide');
-    }
-    else {
-        $(TOOLBAR).addClass('hide');
-        $(ENTRY).removeClass('hide');
-    }
-    callback();
-}
