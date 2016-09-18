@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Menu from '../components/menu.jsx';
-import {fetchEntries, changeEntry, goBackOne, goForwardOne} from '../main/actions';
+import {fetchEntries, changeEntry, goBackOne, goForwardOne, articleList} from '../main/actions';
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -15,6 +15,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onRightArrowClick: () => {
             dispatch(goForwardOne());
+        },
+        onTitleClick: () => {
+            dispatch(articleList());
         }
 
     }
@@ -24,7 +27,8 @@ const mapStateToProps = (state) => {
     return {
         entries: state.blog.entries,
         loading: state.blog.loading,
-        current: state.blog.currentEntry
+        current: state.blog.currentEntry,
+        showArticleList: state.blog.showArticleList
     }
 };
 

@@ -1,0 +1,93 @@
+@import './var.scss';
+
+.current-article {
+  font-size: 38px;
+  cursor: pointer;
+  display: block;
+  &.button {
+    text-decoration: underline;
+  }
+}
+
+.article-selector {
+  position:relative;
+  width: 100%;
+  text-align: center;
+
+  .hide {
+    height: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: visbility 0s, height 0.5s, opacity 0.5s ease;
+  }
+  ul {
+    li {
+      cursor: pointer;
+      padding: 10px;
+      list-style: none;
+      clear: both;
+      display: block;
+      width: 100%;
+      .title {
+        display: inline-block;
+        text-align: left;
+        width: 80%;
+      }
+      .date {
+        display: inline-block;
+        text-align: right;
+        width: 20%;
+      }
+    }
+  }
+  .articles {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 20px;
+  }
+}
+
+.toolbar {
+  clear: both;
+}
+
+.arrow {
+  width: auto;
+  cursor: pointer;
+}
+
+.arrow.disable {
+  opacity: .5;
+}
+
+.arrow-right {
+  margin-right: 20px;
+}
+
+.arrow-left {
+  margin-left: 20px;
+}
+
+ul.article-list {
+  margin-top: 20px;
+}
+
+
+@media screen and (max-width: $breakpoint-phone) {
+  .article-selector {
+    .current-article {
+      font-size: 70px;
+    }
+    ul {
+      li {
+        .date {
+          display: none;
+        }
+      }
+    }
+  }
+  .arrow {
+    width: 200px;
+    height:50px;
+  }
+}

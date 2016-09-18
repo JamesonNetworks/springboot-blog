@@ -1,6 +1,6 @@
 {
 	"title": "Extending Native Magento 2 Javascript Pieces",
-	"subtitle": "Leveraging as much native functionality without copying js files into your theme and incurring that maintenance overhead.",
+	"subtitle": "Leveraging native without incurring that maintenance overhead.",
 	"date": "1473354120998",
 	"markdown" : 
 	{ 
@@ -28,7 +28,7 @@
 				]
 			},
 			{
-                "title": "Example of the new javascript file inside of my JamesonNetworks_CustomShippingRules module",
+                "title": "Example javascript file inside of my module",
                 "contents":
                 [
                     {

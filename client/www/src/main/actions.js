@@ -68,6 +68,17 @@ export function recieveEntries(entries) {
 export function changeEntry(entry) {
     return {
         type: CHANGE_ENTRY,
-        currentEntry: entry
+        currentEntry: entry,
+        showArticleList: false
     }
 }
+
+export const ARTICLE_LIST = "ARTICLE_LIST";
+
+export function articleList() {
+    return {
+        type: ARTICLE_LIST,
+        showArticleList: true
+    }
+}
+

@@ -10,6 +10,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
     return {
         currentEntry: state.blog.currentEntry,
+        showArticleList: state.blog.showArticleList
     }
 };
 
