@@ -1,4 +1,5 @@
 import React from 'react';
+import {fadeOut} from '../main/util';
 
 require("./header.scss");
 
@@ -6,7 +7,7 @@ class Header extends React.Component {
     constructor(props) {
         super(props);
         this.onHeadshotClick = (event) => {
-            this.props.onBackClick();
+            fadeOut(this.props.onBackClick);
         }
     }
 
