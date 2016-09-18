@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import _ from 'lodash';
 import $ from 'jquery';
+import moment from 'moment';
+import {fade} from '../main/util';
 
 require('./menu.scss');
 
@@ -9,26 +11,14 @@ class Menu extends React.Component {
     constructor(props) {
         super(props);
         this.changeHandler = (event) => {
-            let entry_date = event.currentTarget.id;
-            let entries = this.props.entries;
-            let entry = _.filter(entries, (entry) => { return entry.date === entry_date; });
-            this.props.onChange(entry[0]);
+            var self = this;
+            var entry_date = event.currentTarget.id;
+            var entries = this.props.entries;
+            var entry = _.filter(entries, (entry) => { return entry.date === entry_date; });
+            self.props.onChange(entry[0]);
         }
-        this.rightArrowClickHandler = (event) => {
-            if(!$(event.currentTarget).hasClass('disable')) {
-                $('.current-article').fadeOut(() => {  
-                    this.props.onRightArrowClick(); 
-                    $('.current-article').fadeIn();
-                });
-            }
-        }
-        this.leftArrowClickHandler = (event) => {
-            if(!$(event.currentTarget).hasClass('disable')) {
-                $('.current-article').fadeOut(() => {  
-                    this.props.onLeftArrowClick(); 
-                    $('.current-article').fadeIn();
-                });
-            }
+        this.titleClickHandler = (event) => {
+            this.props.onTitleClick();
         }
     }
 
@@ -52,28 +42,23 @@ class Menu extends React.Component {
             return (<div className="article-selector"></div>)
         }
         let options = _.map(_.sortBy(entries, function(entry) { return Date.now() - entry.date }), (entry) => {
-            return <li onClick={this.changeHandler} id={entry.date}>{entry.title}</li>
+            let date = new Date(Number.parseInt(entry.date));
+            let prettyDate = moment(date).format("MMM Do YYYY");
+            return <li className="button" onClick={this.changeHandler} id={entry.date}><div className="title">{entry.title}</div><div className="date">{prettyDate}</div></li>
         });
-        let isLastEntry = (entries[entries.length-1].title === current.title);
-        let isFirstEntry = (entries[0].title === current.title);
-        let arrowClass = function(arrowClass, disabled) {
-            return 'arrow arrow-' + arrowClass + ' ' + (disabled ? 'disable' : '');
-        }
         let showArticleListWrapper = function(baseClass, showArticleList) {
             return showArticleList ? baseClass : baseClass + " hide";
         };
         return (
             <div className="article-selector">
                 <div className={showArticleListWrapper("toolbar", !showArticleList)}>
-                    <div className={arrowClass('left', isFirstEntry)} onClick={this.leftArrowClickHandler}>
-                        <img src="/images/glyphicons/png/glyphicons-601-chevron-up.png" />
-                    </div>
-                    <div className="current-article">{current.title}</div>
-                    <div className={arrowClass('right', isLastEntry)} onClick={this.rightArrowClickHandler}>
-                        <img src="/images/glyphicons/png/glyphicons-601-chevron-up.png"/>
-                    </div>
+                    <div className="current-article button" onClick={this.titleClickHandler}>{current.title}</div>
                 </div>
-                <div className={showArticleListWrapper("articles", showArticleList)}><ul>{options}</ul></div>
+                <div className={showArticleListWrapper("articles", showArticleList)}>
+                    <div className="current-article">Brent Jameson's Blog</div>
+                    <p>Ruminations of a 30 something developer. I've mostly worked in web technologies, from C# to Coffeescript to PHP. I've moved from front end developer to back end developer and finally work as a full stack developer, solving any and all problems that come my way.</p>
+                    <ul className="article-list">{options}</ul>
+                </div>
             </div>
         );
     }

@@ -17,7 +17,7 @@ class Footer extends React.Component {
         return (
             <div className="footer">
                 <div className="actions">
-                    <button onClick={this.onBackClick}>See All Articles</button>
+                    <button onClick={this.onBackClick}>-- See All Articles --</button>
                 </div>
                 <div>
                 Copyright 2016 : JamesonNetworks. All Rights Reserved. See the code <a href="https://github.com/JamesonNetworks/blog" target="_blank">here</a>
