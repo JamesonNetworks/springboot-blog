@@ -3,6 +3,7 @@ import ReactDom from 'react-dom';
 import _ from 'lodash';
 import $ from 'jquery';
 import moment from 'moment';
+import {fade} from '../main/util';
 
 require('./menu.scss');
 
@@ -10,13 +11,16 @@ class Menu extends React.Component {
     constructor(props) {
         super(props);
         this.changeHandler = (event) => {
-            let entry_date = event.currentTarget.id;
-            let entries = this.props.entries;
-            let entry = _.filter(entries, (entry) => { return entry.date === entry_date; });
-            this.props.onChange(entry[0]);
+            var self = this;
+            var entry_date = event.currentTarget.id;
+            var entries = this.props.entries;
+            var entry = _.filter(entries, (entry) => { return entry.date === entry_date; });
+            fade(function() {
+                self.props.onChange(entry[0]);
+            });
         }
         this.titleClickHandler = (event) => {
-            this.props.onTitleClick();
+            fade(this.props.onTitleClick);
         }
     }
 

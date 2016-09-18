@@ -1,7 +1,7 @@
 import Moment from 'moment';
 import $ from 'jquery';
 
-const ARTICLE_SELECTOR = ".article-selector";
+const TOOLBAR = ".toolbar";
 const ENTRY = ".entry";
 
 export function getBaseUrl() {
@@ -14,10 +14,14 @@ export function getBaseUrl() {
     }
 }
 
-export function fadeIn(callback) {
-    $(ARTICLE_SELECTOR).fadeIn($(ENTRY).fadeIn(callback));
-}
-
-export function fadeOut(callback) {
-    $(ARTICLE_SELECTOR).fadeOut($(ENTRY).fadeOut(callback));
+export function fade(callback) {
+    if($(TOOLBAR).is(':visible')) {
+        $(TOOLBAR).addClass('hide');
+        $(ENTRY).removeClass('hide');
+    }
+    else {
+        $(TOOLBAR).addClass('hide');
+        $(ENTRY).removeClass('hide');
+    }
+    callback();
 }
