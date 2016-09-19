@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import {getBaseUrl} from '../main/util';
 import $ from 'jquery';
+import moment from 'moment';
 
 require('./entry.scss');
 
@@ -154,8 +155,13 @@ class Entry extends React.Component {
         let showArticleList = this.props.showArticleList;
         let className = showArticleList ? "entry hide" : "entry";
 
+        let dateObj = new Date(Number.parseInt(date));
+        let prettyDate = moment(dateObj).format("MMMM Do YYYY");
+
         return (
             <div className={className}>
+                <div className="post-date">{prettyDate}</div>
+                <div className="post-date-divider"></div>
                 <div className="post-article">
                     <div className="post-field">
                         <div className="subtitle">{entry.subtitle}</div>
