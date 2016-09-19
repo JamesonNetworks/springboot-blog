@@ -1,7 +1,6 @@
 @import './var.scss';
 
 .current-article {
-  font-size: 38px;
   cursor: pointer;
   display: block;
   &.button {
@@ -18,6 +17,7 @@
     height: 0;
     visibility: hidden;
     opacity: 0;
+    display: none;
     transition: visbility 0s, height 0.5s, opacity 0.5s ease;
   }
   ul {
@@ -73,21 +73,18 @@ ul.article-list {
 }
 
 
-@media screen and (max-width: $breakpoint-phone) {
+@media screen and (max-device-width: $breakpoint-phone) {
   .article-selector {
-    .current-article {
-      font-size: 70px;
-    }
     ul {
       li {
+        font-size: 38px;
+        .title {
+          width: 100%;
+        }
         .date {
           display: none;
         }
       }
     }
-  }
-  .arrow {
-    width: 200px;
-    height:50px;
   }
 }

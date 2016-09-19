@@ -52,10 +52,10 @@ class Menu extends React.Component {
         return (
             <div className="article-selector">
                 <div className={showArticleListWrapper("toolbar", !showArticleList)}>
-                    <div className="current-article button" onClick={this.titleClickHandler}>{current.title}</div>
+                    <h1 className="current-article button" onClick={this.titleClickHandler}>{current.title}</h1>
                 </div>
                 <div className={showArticleListWrapper("articles", showArticleList)}>
-                    <div className="current-article">Brent Jameson's Blog</div>
+                    <h1 className="current-article">Brent Jameson's Blog</h1>
                     <p>Ruminations of a 30 something developer. I've mostly worked in web technologies, from C# to Coffeescript to PHP. I've moved from front end developer to back end developer and finally work as a full stack developer, solving any and all problems that come my way.</p>
                     <ul className="article-list">{options}</ul>
                 </div>
