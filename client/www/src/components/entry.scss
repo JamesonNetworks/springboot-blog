@@ -140,11 +140,12 @@ projection {
 }
 pre.prettyprint {
   padding: 2px;
-  border: 1px solid #888
+  border: 0;
 }
 ol.linenums {
   margin-top: 0;
-  margin-bottom: 0
+  margin-bottom: 0;
+  padding: 0;
 }
 li.L0,
 li.L1,
