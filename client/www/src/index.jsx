@@ -16,7 +16,7 @@ let blog = createStore(
     applyMiddleware(thunk)
 );
 
-const render = function(cb) {
+const render = function() {
     ReactDOM.render(
         <Provider store={blog}>
             <App/>
