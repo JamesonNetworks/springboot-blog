@@ -23,14 +23,7 @@ const render = function(cb) {
         </Provider>,
         document.getElementById('app')
     );
-    if(typeof(cb) !== 'undefined') {
-        cb();
-    }
-};
-
-let loadCallback = function() {
-    setTimeout(() => {  $('.app').removeClass('hide'); }, 300);
 };
 
 blog.subscribe(render);
-render(loadCallback);
+render();

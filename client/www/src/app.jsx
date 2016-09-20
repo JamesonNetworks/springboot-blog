@@ -10,8 +10,9 @@ require('./main/prettify.js');
 
 class App extends React.Component {
     render() {
+        let appClass = this.props.store.loading ? 'app hide' : 'app';
         return (
-            <div className="app hide">
+            <div className={appClass}>
                 <Header/>
                 <Menu/>
                 <Entry/>
