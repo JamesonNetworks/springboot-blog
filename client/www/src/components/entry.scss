@@ -44,6 +44,14 @@
     }
     .post-content {
     }
+    .section-divider {
+      background: #ddd;
+      background: -webkit-gradient(linear, left top, right top, from(rgba(255,255,255,0)), color-stop(#ccc), to(rgba(255,255,255,0)));
+      background: -webkit-linear-gradient(left, rgba(255,255,255,0), #ccc, rgba(255,255,255,0));
+      background: linear-gradient(to right, rgba(255,255,255,0), #ccc, rgba(255,255,255,0));
+      height: 1px;
+      margin: 2em 0;
+    }
     .section-divider-pad {
         padding-bottom: 20px;
     }
@@ -132,11 +140,12 @@ projection {
 }
 pre.prettyprint {
   padding: 2px;
-  border: 1px solid #888
+  border: 0;
 }
 ol.linenums {
   margin-top: 0;
-  margin-bottom: 0
+  margin-bottom: 0;
+  padding: 0;
 }
 li.L0,
 li.L1,

@@ -3,9 +3,6 @@
 .current-article {
   cursor: pointer;
   display: block;
-  &.button {
-    text-decoration: underline;
-  }
 }
 
 .article-selector {

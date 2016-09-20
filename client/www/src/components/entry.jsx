@@ -86,7 +86,7 @@ var Section = React.createClass({
         return (
             <div>
                 <div className="section-title>"><h3>{section.title}</h3></div>
-                <hr className="section-divider"></hr>
+                <div className="section-divider"></div>
                 <div className="section-divider-pad"></div>
                 {articleContents}
             </div>
