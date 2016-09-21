@@ -5,6 +5,7 @@ import com.jamesonnetworks.blog.domain.entry.Entry;
 import com.jamesonnetworks.blog.domain.entry.EntryComporator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
@@ -20,6 +21,7 @@ public class Util {
 
     private static final Logger log = LoggerFactory.getLogger(Util.class);
 
+    @Cacheable("entries")
     public static ArrayList<Entry> getEntries() {
 
         ArrayList<InputStream> entries = new ArrayList<InputStream>();

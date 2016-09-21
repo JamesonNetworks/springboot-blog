@@ -1,4 +1,4 @@
-package com.jamesonnetworks.blog.security;
+package com.jamesonnetworks.blog.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
