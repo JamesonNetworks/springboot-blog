@@ -1,9 +1,10 @@
 import React from 'react';
-import ReactDom from 'react-dom';
-import _ from 'lodash';
-import $ from 'jquery';
 import moment from 'moment';
 import {fade} from '../main/util';
+
+import map from 'lodash/map';
+import filter from 'lodash/filter';
+import sortBy from 'lodash/sortBy';
 
 require('./menu.scss');
 
@@ -14,7 +15,7 @@ class Menu extends React.Component {
             var self = this;
             var entry_date = event.currentTarget.id;
             var entries = this.props.entries;
-            var entry = _.filter(entries, (entry) => { return entry.date === entry_date; });
+            var entry = filter(entries, (entry) => { return entry.date === entry_date; });
             self.props.onChange(entry[0]);
         }
         this.titleClickHandler = (event) => {
@@ -44,7 +45,7 @@ class Menu extends React.Component {
         if(entries.length < 1) {
             return (<div className="article-selector"></div>)
         }
-        let options = _.map(_.sortBy(entries, function(entry) { return Date.now() - entry.date }), (entry) => {
+        let options = map(sortBy(entries, function(entry) { return Date.now() - entry.date }), (entry) => {
             let date = new Date(Number.parseInt(entry.date));
             let prettyDate = moment(date).format("MMM Do YYYY");
             return <li className="button" onClick={this.changeHandler} id={entry.date}><div className="title">{entry.title}</div><div className="date">{prettyDate}</div></li>

@@ -28,6 +28,11 @@ var plugins = [
 if (production) {
     plugins = plugins.concat([
         new CleanPlugin('pub'),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production')
+            }
+        }),
         // This plugin looks for similar chunks and files
         // and merges them for better caching by the user
         new webpack.optimize.DedupePlugin(),
@@ -45,6 +50,7 @@ if (production) {
         // This plugin minifies all the Javascript code of the final bundle
         new webpack.optimize.UglifyJsPlugin({
             mangle:   true,
+            minimize: true,
             compress: {
                 warnings: false, // Suppress uglification warnings
             },
@@ -70,7 +76,7 @@ if (production) {
 
 module.exports = {
     debug:   !production,
-    devtool: production ? false : 'eval',
+    devtool: production ? 'cheap-module-source-map' : 'eval',
     entry:  [
         './src/index.jsx'
     ],
