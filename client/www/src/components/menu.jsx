@@ -4,7 +4,7 @@ import {fade} from '../main/util';
 
 import map from 'lodash/map';
 import filter from 'lodash/filter';
-import sortBy from 'lodash/sortby';
+import sortBy from 'lodash/sortBy';
 
 require('./menu.scss');
 
