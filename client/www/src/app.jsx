@@ -11,7 +11,7 @@ require('./main/prettify.js');
 class App extends React.Component {
     render() {
         return (
-            <div className="app hide">
+            <div>
                 <Header/>
                 <Menu/>
                 <Entry/>

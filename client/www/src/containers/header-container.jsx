@@ -11,7 +11,9 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const mapStateToProps = (state) => {
-    return {}
+    return {
+        loading: state.blog.loading
+    }
 };
 
 const HeaderContainer = connect(

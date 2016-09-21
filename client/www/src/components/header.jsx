@@ -12,8 +12,9 @@ class Header extends React.Component {
     }
 
     render() {
+        let headerClassName = this.props.loading ? 'header hide' : 'header';
         return (
-            <div className="header">
+            <div className={headerClassName}>
                 <img onClick={this.onHeadshotClick} className="headshot" src="https://secure.gravatar.com/avatar/d9cb6cfd91d71964be0ab1bd5d2cb4ab"/>
             </div>
         );

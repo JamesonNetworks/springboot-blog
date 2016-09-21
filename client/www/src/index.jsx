@@ -16,21 +16,14 @@ let blog = createStore(
     applyMiddleware(thunk)
 );
 
-const render = function(cb) {
+const render = function() {
     ReactDOM.render(
         <Provider store={blog}>
             <App/>
         </Provider>,
         document.getElementById('app')
     );
-    if(typeof(cb) !== 'undefined') {
-        cb();
-    }
-};
-
-let loadCallback = function() {
-    setTimeout(() => {  $('.app').removeClass('hide'); }, 300);
 };
 
 blog.subscribe(render);
-render(loadCallback);
+render();

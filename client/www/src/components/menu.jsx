@@ -35,6 +35,9 @@ class Menu extends React.Component {
         let entries = this.props.entries;
         let current = this.props.current;
         let showArticleList = this.props.showArticleList;
+
+        let articleSelectorClassName = this.props.loading ? 'article-selector hide' : 'article-selector';
+
         if(!current) {
             current = entries[entries.length-1];
         }
@@ -50,7 +53,7 @@ class Menu extends React.Component {
             return showArticleList ? baseClass : baseClass + " hide";
         };
         return (
-            <div className="article-selector">
+            <div className={articleSelectorClassName}>
                 <div className={showArticleListWrapper("toolbar", !showArticleList)}>
                     <h1 className="current-article button" onClick={this.titleClickHandler}>{current.title}</h1>
                 </div>
