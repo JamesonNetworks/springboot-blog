@@ -6,6 +6,11 @@ import map from 'lodash/map';
 import filter from 'lodash/filter';
 import sortBy from 'lodash/sortBy';
 
+import gsap from 'gsap';
+
+import ReactTransitionGroup from 'react-addons-css-transition-group';
+require('react-addons-css-transition-group');
+
 require('./menu.scss');
 
 class Menu extends React.Component {
@@ -30,8 +35,21 @@ class Menu extends React.Component {
             this.props.onInitialLoad();
         }
     }
+    componentWillAppear(callback) {
+        debugger;
+        const el = findDOMNode(this);
+        gsap.TweenMax.fromTo(el, 0.3, {y: 100, opacity: 0}, {y: 0, opacity: 1, onComplete: callback});
+    }
+    componentWillEnter (callback) {
+        debugger;
+        const el = findDOMNode(this);
+        gsap.TweenMax.fromTo(el, 0.3, {y: 100, opacity: 0}, {y: 0, opacity: 1, onComplete: callback});
+    }
 
-    componentDidUpdate() {
+    componentWillLeave (callback) {
+        debugger;
+        const el = findDOMNode(this);
+        gsap.TweenMax.fromTo(el, 0.3, {y: 0, opacity: 1}, {y: -100, opacity: 0, onComplete: callback});
     }
 
     render() {
@@ -52,19 +70,26 @@ class Menu extends React.Component {
             let prettyDate = moment(date).format("MMM Do YYYY");
             return <li className="button" onClick={this.changeHandler} key={entry.date} id={entry.date}><div className="title">{entry.title}</div><div className="date">{prettyDate}</div></li>
         });
-        let showArticleListWrapper = function(baseClass, showArticleList) {
-            return showArticleList ? baseClass : baseClass + " hide";
-        };
         return (
             <div className={articleSelectorClassName}>
-                <div className={showArticleListWrapper("toolbar", !showArticleList)}>
-                    <h1 className="current-article button" onClick={this.titleClickHandler}>{current.title}</h1>
-                </div>
-                <div className={showArticleListWrapper("articles", showArticleList)}>
-                    <h1 className="current-article">Brent Jameson's Blog</h1>
-                    <p>Ruminations of a 30 something developer. I've mostly worked in web technologies, from C# to Coffeescript to PHP. I've moved from front end developer to back end developer and finally work as a full stack developer, solving any and all problems that come my way.</p>
-                    <ul className="article-list">{options}</ul>
-                </div>
+                <ReactTransitionGroup transitionName="menu"
+                                      transitionAppear={true}
+                                      transitionAppearTimeout={500}
+                                      transitionEnterTimeout={500}
+                                      transitionLeaveTimeout={300}>
+                    { showArticleList ?
+                        <div className="articles">
+                            <h1 className="current-article">Brent Jameson's Blog</h1>
+                            <p>Ruminations of a 30 something developer. I've mostly worked in web technologies, from C# to Coffeescript to PHP. I've moved from front end developer to back end developer and finally work as a full stack developer, solving any and all problems that come my way.</p>
+                            <ul className="article-list">{options}</ul>
+                        </div>
+                        :
+                        <div className="toolbar">
+                            <h1 className="current-article button" onClick={this.titleClickHandler}>{current.title}</h1>
+                        </div>
+
+                    }
+                </ReactTransitionGroup>
             </div>
         );
     }
