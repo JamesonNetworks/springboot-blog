@@ -6,10 +6,12 @@ import {
     CHANGE_ENTRY,
     ARTICLE_LIST} from './actions';
 
+var entriesExist = typeof(entries) !== 'undefined' ? true : false;
+
 function blog(state = {
-    loading: true,
-    entries: typeof(entries) !== 'undefined' ? entries : {},
-    currentEntry: {},
+    loading: entriesExist ? false : true,
+    entries: entriesExist ? entries : {},
+    currentEntry: entriesExist ? entries[entries.length-1] : {},
     showArticleList: false
 }, action) {
     let entries = state.entries;
