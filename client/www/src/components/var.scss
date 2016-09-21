@@ -22,18 +22,19 @@ button,
   }
 }
 
+.app,
 .header,
 .footer,
 .entry,
 .article-selector {
-  opacity: 1;
+  display: block;
 }
 
+body {
+  -moz-osx-font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+}
 
 .hide {
-  height: 0;
-  visibility: hidden;
-  opacity: 0;
   display: none;
-  transition: opacity 0.5s ease;
 }
