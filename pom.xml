@@ -138,7 +138,7 @@
 									-r
 								</argument>
 								<argument>
-									client/www/pub/
+									client/www/pub/*
 								</argument>
 								<argument>
 									src/main/resources/static/
