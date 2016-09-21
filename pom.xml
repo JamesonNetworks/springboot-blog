@@ -65,6 +65,7 @@
 	
 	<build>
 		<plugins>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -125,25 +126,26 @@
 							</arguments>
 						</configuration>
 					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.0.1</version>
+				<executions>
 					<execution>
-						<id>Copy files to static</id>
-						<phase>generate-sources</phase>
+						<id>copy-resources</id>
+						<phase>compile</phase>
 						<goals>
-							<goal>exec</goal>
+							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<executable>cp</executable>
-							<arguments>
-								<argument>
-									-r
-								</argument>
-								<argument>
-									client/www/pub/*
-								</argument>
-								<argument>
-									src/main/resources/static/
-								</argument>
-							</arguments>
+							<outputDirectory>${basedir}/src/main/resources/static/</outputDirectory>
+							<resources>
+								<resource>
+									<directory>client/www/pub/</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
 						</configuration>
 					</execution>
 				</executions>
