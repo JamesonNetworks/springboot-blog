@@ -5,7 +5,7 @@
   "scripts": {
     "test": "mocha  --compilers js:babel-core/register",
     "start": "node node_modules/http-server/bin/http-server -p 8888 ./pub | webpack --watch",
-    "production": "webpack -p"
+    "production": "NODE_ENV=production webpack -p"
   },
   "keywords": [],
   "author": "",
