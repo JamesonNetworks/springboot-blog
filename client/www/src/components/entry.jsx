@@ -1,7 +1,5 @@
 import React from 'react';
-import ReactDom from 'react-dom';
 import {getBaseUrl} from '../main/util';
-import $ from 'jquery';
 import moment from 'moment';
 
 require('./entry.scss');
@@ -121,7 +119,6 @@ class Entry extends React.Component {
     componentDidUpdate() {
         function doPrettyPrint() {
             (function(){
-                $('pre').addClass('prettyprint');
                 prettyPrint();
             })();
         }

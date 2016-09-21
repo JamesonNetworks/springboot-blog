@@ -1,5 +1,4 @@
 import React from 'react';
-import {fade} from '../main/util';
 
 require("./header.scss");
 
