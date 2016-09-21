@@ -125,6 +125,27 @@
 							</arguments>
 						</configuration>
 					</execution>
+					<execution>
+						<id>Copy files to static</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>cp</executable>
+							<arguments>
+								<argument>
+									-r
+								</argument>
+								<argument>
+									client/www/pub/
+								</argument>
+								<argument>
+									src/main/resources/static/
+								</argument>
+							</arguments>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 		</plugins>
