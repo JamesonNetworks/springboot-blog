@@ -27,13 +27,16 @@ button,
 .entry,
 .article-selector {
   opacity: 1;
+  transition: opacity 1.0s ease;
 }
 
-
+body {
+  -moz-osx-font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+}
 .hide {
   height: 0;
-  visibility: hidden;
+  overflow: hidden;
   opacity: 0;
-  display: none;
-  transition: opacity 0.5s ease;
+  transition: opacity 1.0s ease;
 }

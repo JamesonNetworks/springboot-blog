@@ -8,7 +8,7 @@ import {
 
 function blog(state = {
     loading: true,
-    entries: [],
+    entries: typeof(entries) !== 'undefined' ? entries : {},
     currentEntry: {},
     showArticleList: false
 }, action) {
