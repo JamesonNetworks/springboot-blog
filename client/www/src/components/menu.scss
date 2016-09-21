@@ -10,13 +10,7 @@
   width: 100%;
   text-align: center;
 
-  .hide {
-    height: 0;
-    visibility: hidden;
-    opacity: 0;
-    display: none;
-    transition: visbility 0s, height 0.5s, opacity 0.5s ease;
-  }
+
   ul {
     li {
       cursor: pointer;

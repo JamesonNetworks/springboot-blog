@@ -130,7 +130,7 @@ class Entry extends React.Component {
 
     render() {
         let loading = this.props.loading;
-        let entryClassName = loading ? 'entry' : 'entry hide';
+        let entryClassName = loading ? 'entry hide' : 'entry ';
         let notFound = () => { return (<div className={entryClassName}>No entries found.</div>) }
         if(!this.props.currentEntry) {
             return notFound();
@@ -155,6 +155,7 @@ class Entry extends React.Component {
         }
 
         let showArticleList = this.props.showArticleList;
+
         let className = (showArticleList || loading) ? "entry hide" : "entry";
 
         let dateObj = new Date(Number.parseInt(date));

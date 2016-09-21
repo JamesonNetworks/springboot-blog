@@ -14,8 +14,10 @@ class Footer extends React.Component {
     }
 
     render() {
+        let footerClassName = this.props.loading ? 'footer hide' : 'footer';
+
         return (
-            <div className="footer">
+            <div className={footerClassName}>
                 <div className="actions">
                     <button onClick={this.onBackClick}>-- See All Articles --</button>
                 </div>
