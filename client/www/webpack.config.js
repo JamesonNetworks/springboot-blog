@@ -15,20 +15,14 @@ var plugins = [
         inject: 'body' // Inject all scripts into the body (this is the default so you can skip it)
     }),
     new CopyWebpackPlugin([
-        { from: 'src/images/', to: 'images/' },
-        { from: 'src/images/', to: '../../../src/main/resources/static/images/' },
-        { from: 'src/images/favicon.ico', to: '../../../src/main/resources/static/' },
-        { from: 'pub/bundle.js', to: '../../../src/main/resources/static/' },
-        { from: 'pub/bundle.css', to: '../../../src/main/resources/static/' },
-        { from: 'pub/index.html', to: '../../../src/main/resources/static/' },
-        { from: 'entries/', to: '../../../src/main/resources/static/entries/' }
+        { from: 'src/images/', to: 'images/' }
     ]),
     new ExtractPlugin('bundle.css'),
     new webpack.optimize.CommonsChunkPlugin({
         name:      'main', // Move dependencies to our main file
         children:  true, // Look for common dependencies in all children,
         minChunks: 2, // How many times a dependency must come up before being extracted
-    }),
+    })
 ];
 
 if (production) {
@@ -65,9 +59,12 @@ if (production) {
             __DEVTOOLS__:    !production,
             'process.env':   {
                 BABEL_ENV: JSON.stringify(process.env.NODE_ENV),
-            },
+            }
         }),
-
+        new CopyWebpackPlugin([
+            { from: 'src/images/favicon.ico' },
+            { from: 'entries/', to: 'entries/'}
+        ])
     ]);
 }
 
@@ -79,7 +76,7 @@ module.exports = {
     ],
     output: {
         path:          path.resolve(__dirname, 'pub'),
-        filename:      production ? '[name]-[hash].js' : 'bundle.js',
+        filename:      'bundle.js',
         chunkFilename: '[name]-[chunkhash].js',
         publicPath:    '/',
     },
