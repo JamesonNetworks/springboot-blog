@@ -64,19 +64,4 @@ ul.article-list {
 }
 
 
-@media screen and (max-device-width: $breakpoint-phone) {
-  .article-selector {
-    ul {
-      li {
-        font-size: 38px;
-        .title {
-          width: 100%;
-        }
-        .date {
-          display: none;
-        }
-      }
-    }
-  }
-}
 
