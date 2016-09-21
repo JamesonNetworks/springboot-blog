@@ -119,7 +119,7 @@ class Entry extends React.Component {
     componentDidUpdate() {
         function doPrettyPrint() {
             (function(){
-                prettyPrint();
+                PR.prettyPrint();
             })();
         }
         doPrettyPrint();

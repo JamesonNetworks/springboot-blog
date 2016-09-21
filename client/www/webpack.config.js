@@ -33,6 +33,7 @@ if (production) {
                 'NODE_ENV': JSON.stringify('production')
             }
         }),
+        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /us/),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         // This plugin looks for similar chunks and files
         // and merges them for better caching by the user
