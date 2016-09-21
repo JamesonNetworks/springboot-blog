@@ -165,25 +165,3 @@ li.L9 {
   background: #eee
 }
 
-@media screen and (max-device-width: $breakpoint-phone) {
-  .header {
-    display: none;
-  }
-  .entry {
-    overflow: scroll;
-    .post-article {
-      padding: 30px;
-    }
-    .post-content {
-      line-height: 60px;
-      overflow: hidden;
-    }
-    .subtitle {
-      line-height: 48px;
-    }
-    .prettyprint {
-      font-size: 44px;
-      line-height: 44px;
-    }
-  }
-}
