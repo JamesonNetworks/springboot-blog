@@ -5,7 +5,6 @@ import Menu from './containers/menu-container.jsx';
 import Entry from './containers/entry-container.jsx';
 
 require('./app.scss');
-require('./main/prettify.js');
 
 class App extends React.Component {
     render() {
