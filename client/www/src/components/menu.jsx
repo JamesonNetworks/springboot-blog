@@ -16,6 +16,8 @@ class Menu extends React.Component {
             var entry_date = event.currentTarget.id;
             var entries = this.props.entries;
             var entry = filter(entries, (entry) => { return entry.date === entry_date; });
+
+
             self.props.onChange(entry[0]);
         }
         this.titleClickHandler = (event) => {
@@ -48,7 +50,7 @@ class Menu extends React.Component {
         let options = map(sortBy(entries, function(entry) { return Date.now() - entry.date }), (entry) => {
             let date = new Date(Number.parseInt(entry.date));
             let prettyDate = moment(date).format("MMM Do YYYY");
-            return <li className="button" onClick={this.changeHandler} id={entry.date}><div className="title">{entry.title}</div><div className="date">{prettyDate}</div></li>
+            return <li className="button" onClick={this.changeHandler} key={entry.date} id={entry.date}><div className="title">{entry.title}</div><div className="date">{prettyDate}</div></li>
         });
         let showArticleListWrapper = function(baseClass, showArticleList) {
             return showArticleList ? baseClass : baseClass + " hide";

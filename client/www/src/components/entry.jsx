@@ -78,7 +78,8 @@ var Section = React.createClass({
         var date = this.props.date;
         if(contents) {
             for (var i=0; i < contents.length; i++) {
-                articleContents.push(<Content content={contents[i]} date={date} />);
+                let sectionKey = "selector-" + i;
+                articleContents.push(<Content key={sectionKey} content={contents[i]} date={date} />);
             }
         }
         return (
@@ -100,7 +101,8 @@ var FirstSection = React.createClass({
         var date = this.props.date;
         if(contents) {
             for (var i=0; i < contents.length; i++) {
-                articleContents.push(<Content content={contents[i]} date={date} />);
+                let sectionKey = "selector-" + i;
+                articleContents.push(<Content key={sectionKey} content={contents[i]} date={date} />);
             }
         }
         return (
@@ -142,11 +144,12 @@ class Entry extends React.Component {
         var articleSections = [];
         if(sections) {
             for (var i=0; i < sections.length; i++) {
+                let sectionKey = "section-key-" + i;
                 if(i === 0) {
-                    articleSections.push(React.createElement(FirstSection, {section: sections[i], date: date}));
+                    articleSections.push(React.createElement(FirstSection, {key: sectionKey, section: sections[i], date: date}));
                 }
                 else {
-                    articleSections.push(React.createElement(Section, {section: sections[i], date: date}));
+                    articleSections.push(React.createElement(Section, {key: sectionKey, section: sections[i], date: date}));
                 }
             }
         }
