@@ -76,7 +76,7 @@ module.exports = {
     ],
     output: {
         path:          path.resolve(__dirname, 'pub'),
-        filename:      production ? '[name]-[hash].js' : 'bundle.js',
+        filename:      'bundle.js',
         chunkFilename: '[name]-[chunkhash].js',
         publicPath:    '/',
     },
