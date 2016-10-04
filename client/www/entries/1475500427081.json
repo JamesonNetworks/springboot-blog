@@ -56,6 +56,10 @@
                         "content":"I actually needed in other libraries. Instead of including lodash entirely, I changed a couple of includes to only pull the pieces I need. The snippet below is from client/www/src/components/menu.jsx." 
                     },
                     {
+                        "type": "code",
+                        "content": "import React from \'react\';\r\nimport moment from \'moment\';\r\nimport {fade} from \'..\/main\/util\';\r\n\r\nimport map from \'lodash\/map\';\r\nimport filter from \'lodash\/filter\';\r\nimport sortBy from \'lodash\/sortBy\';"
+                    },
+                    {
                         "type":"paragraph",
                         "content": "My last not-so-obvious issue came from using a library called Moment.js. Moment.js does something interesting with its dynamic loading that clashes with other smart things that webpack does (https://github.com/moment/moment/issues/2416, http://stackoverflow.com/questions/25384360/how-to-prevent-moment-js-from-loading-locales-with-webpack/25426019#25426019). Using that post as a guide, I added a couple more plugins to my production deployment setup. Once I did this, my package size was down to around 250kb. Still gigantic, but we're getting there. My entire webpack config is listed here for reference."
                     },
