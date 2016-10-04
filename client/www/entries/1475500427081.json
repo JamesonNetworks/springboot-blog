@@ -1,0 +1,83 @@
+{
+	"title": "Webpack Bloat",
+	"subtitle": "Why is my website so huge?",
+	"date": "1475500427081",
+	"markdown" : 
+	{ 
+		"sections": [
+			{
+				"title": "An Apology",
+				"contents" : 
+				[
+                    {
+                        "type": "quote",
+                        "content": "My modest proposal: your website should not exceed in file size the major works of Russian literature. Anna Karenina, for example, is 1.8 MB -- @Pinboard"
+                    },
+					{
+						"type": "paragraph",
+						"content": "I have to apologize to everyone. If you visited my blog in the past year or so, you might have noticed a particularly slow load time. I noticed it on my phone, but I ignored it as I created the blog as a proof of concept on React and Redux. It was serving as a learning exercise rather than a production system. I ignored the problems until this week when I finally inspected the network panel and noticed a 3 MEGABYTE download of bundle.js and the site itself had a 3 second load time which is abysmal. This post will be a journey into optimizations as we take a look at some peculiarities that might be affecting you and your webpack asset pipeline."
+					}
+				]
+			},
+            {
+                "title": "Part I: The Obvious Problems",
+                "contents": [
+                    {
+                        "type": "paragraph",
+                        "content": "I wasn't running webpack in production mode at all! I noticed when I added a cleaning step into the production plugins that the cleanup didn't occur. I assumed that webpack -p would take care of putting webpack into a production like mode, however, -p only initiates \"--optimize-minimize\" within webpack. So, our first adjustment is to ensure that webpack is set into production mode inside of our package.json by changing \"production\": \"webpack -p\" to \"production\": \"NODE_ENV=production webpack -p\" inside of the NPM scripts of package.json. With this added environment variable, our webpack plugins will run as expected for the production configuration. "
+                    },
+                    {
+                      "type": "code",
+                      "content": "\"scripts\": {\r\n    \"test\": \"mocha  --compilers js:babel-core\/register\",\r\n    \"start\": \"node node_modules\/http-server\/bin\/http-server -p 8888 .\/pub | webpack --watch\",\r\n    \"production\": \"NODE_ENV=production webpack -p\"\r\n  }"
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": "Now that webpack was building in production mode, the size of bundle.js went down to about 650kb. This is still HUGE for what the blog does (almost nothing at the time of this post). My next step in reducing the size was to remove some dependencies for the project. I found that I was including jquery from where I was doing things in a much different way before I started the react-flux front end architecture. As it turns out, I didn't need jQuery anymore at all! I removed jQuery from the build and reduced the size to about 570kb. Clearly there were still some dependency problems occurring."
+                    }
+                ]
+            },
+            {
+                "title": "Part II: The Not So Obvious Problems",
+                "contents": [
+                    {
+                        "type": "paragraph",
+                        "content": "At this point, I was a little frustrated. My webpack production plugins were working, I felt like I had a pretty good handle on the dependencies, and I wasn't doing very much with my code. I couldn't understand why my bundle was still huge. The first place I looked was in the webpack config itself, looking for ways to make things more efficient."
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": "One change recommended on several github threads and blogs involved changing the devtool from 'eval' to 'cheap-module-source-map'. I changed this entry in my webpack config and instantly saw a huge reduction in size (I believe this was one of the big gains that came from turning the production flag on in the first place, as the devtool was already dependent on my production mode environment variable). This is an absolutely crucial setting."
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": "Next, I added a plugin to my production plugins that would define process.env using the DefinePlugin. I'm not sure if this is required or what it does, but it was a step along the way." 
+                    },
+                    {
+                        "type": "paragraph",
+                        "content":"I actually needed in other libraries. Instead of including lodash entirely, I changed a couple of includes to only pull the pieces I need. The snippet below is from client/www/src/components/menu.jsx." 
+                    },
+                    {
+                        "type":"paragraph",
+                        "content": "My last not-so-obvious issue came from using a library called Moment.js. Moment.js does something interesting with its dynamic loading that clashes with other smart things that webpack does (https://github.com/moment/moment/issues/2416, http://stackoverflow.com/questions/25384360/how-to-prevent-moment-js-from-loading-locales-with-webpack/25426019#25426019). Using that post as a guide, I added a couple more plugins to my production deployment setup. Once I did this, my package size was down to around 250kb. Still gigantic, but we're getting there. My entire webpack config is listed here for reference."
+                    },
+                    {
+                        "type": "code",
+                        "content" : "var webpack    = require('webpack');\nvar CleanPlugin = require('clean-webpack-plugin');\nvar ExtractPlugin = require('extract-text-webpack-plugin');\nvar HtmlWebpackPlugin = require('html-webpack-plugin');\nvar CopyWebpackPlugin = require('copy-webpack-plugin');\nvar LiveReloadPlugin = require('webpack-livereload-plugin');\nvar production = process.env.NODE_ENV === 'production';\nvar path = require(\"path\");\n\nvar plugins = [\n    new LiveReloadPlugin(),\n    new HtmlWebpackPlugin({\n        title: 'JamesonNetworks Blog',\n        template: 'src/index.ejs', // Load a custom template (ejs by default but can be changed)\n        inject: 'body' // Inject all scripts into the body (this is the default so you can skip it)\n    }),\n    new CopyWebpackPlugin([\n        { from: 'src/images/', to: 'images/' }\n    ]),\n    new ExtractPlugin('bundle.css'),\n    new webpack.optimize.CommonsChunkPlugin({\n        name:      'main', // Move dependencies to our main file\n        children:  true, // Look for common dependencies in all children,\n        minChunks: 2, // How many times a dependency must come up before being extracted\n    })\n];\n\nif (production) {\n    plugins = plugins.concat([\n        new CleanPlugin('pub'),\n        new webpack.DefinePlugin({\n            'process.env': {\n                'NODE_ENV': JSON.stringify('production')\n            }\n        }),\n        new webpack.ContextReplacementPlugin(/moment[\\/\\\\]locale$/, /us/),\n        new webpack.IgnorePlugin(/^\\.\\/locale$/, /moment$/),\n        // This plugin looks for similar chunks and files\n        // and merges them for better caching by the user\n        new webpack.optimize.DedupePlugin(),\n\n        // This plugins optimizes chunks and modules by\n        // how much they are used in your app\n        new webpack.optimize.OccurenceOrderPlugin(),\n\n        // This plugin prevents Webpack from creating chunks\n        // that would be too small to be worth loading separately\n        new webpack.optimize.MinChunkSizePlugin({\n            minChunkSize: 51200, // ~50kb\n        }),\n\n        // This plugin minifies all the Javascript code of the final bundle\n        new webpack.optimize.UglifyJsPlugin({\n            mangle:   true,\n            minimize: true,\n            compress: {\n                minimize: true,                                                                                                      \n                warnings: false, // Suppress uglification warnings\n            },\n        }),\n\n        // This plugins defines various variables that we can set to false\n        // in production to avoid code related to them from being compiled\n        // in our final bundle\n        new webpack.DefinePlugin({\n            __SERVER__:      !production,\n            __DEVELOPMENT__: !production,\n            __DEVTOOLS__:    !production,\n            process.env:   {\n                BABEL_ENV: JSON.stringify(process.env.NODE_ENV),\n            }\n        }),\n        new CopyWebpackPlugin([\n            { from: 'src/images/favicon.ico' },\n            { from: 'entries/', to: 'entries/'}\n        ])\n    ]);\n}\n\nmodule.exports = {\n    debug:   !production,\n    devtool: production ? 'cheap-module-source-map' : 'eval',\n    entry:  [\n        './src/index.jsx'\n    ],\n    output: {\n        path:          path.resolve(__dirname, 'pub'),\n        filename:      'bundle.js',\n        chunkFilename: '[name]-[chunkhash].js',\n        publicPath:    '/',\n    },\n    plugins: plugins,\n    module: {\n\n        loaders: [\n            {\n                test : /\\.jsx?/,\n                include : path.resolve(__dirname, 'src'),\n                loaders : ['babel']\n            },\n            {\n                test:    /\\.js/,\n                loaders:  ['babel'],\n                include: __dirname + '/src'\n            },\n            {\n                test:   /\\.scss/,\n                loader: ExtractPlugin.extract('style', 'css!sass'),\n            },\n            {\n                test:   /\\.html/,\n                loader: 'html',\n            }\n        ]\n    },\n    eslint: {\n        configFile: '.eslintrc'\n    }\n};"
+                    }
+                ]
+            },
+            {
+                "title": "Part III: The Out of Left Field Solutions",
+                "contents": [
+                    {
+                        "type": "paragraph",
+                        "content": "With a 250kb bundle.js file as my smallest optimized file, I felt ready to go other places for optimizations. The first step was to turn on gzip compression. I did this in two places, both the application.properties of the embedded tomcat servlet and the nginx configuration in all environments. Now a page load is pulling a 75 kb sized file!"
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": "After \"fixing\" the bundle (I'm still not happy with the size, but thats life), I worked on tackling my main problem of requesting the list of entries and entry content AFTER the page loaded. Using Spring thymeleaf templates, I grab the entry and pre-render it onto the pages for both the Index and Entry controller to avoid the request back out to the server in order to get the entries for the blog. The relevant code is listed below."
+                    }
+                ]
+            }
+		]
+	}
+}

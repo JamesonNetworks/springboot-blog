@@ -156,6 +156,9 @@
 								<resource>
 									<directory>client/www/pub/</directory>
 									<filtering>true</filtering>
+									<excludes>
+										<exclude>**/*.map</exclude>
+									</excludes>
 								</resource>
 							</resources>
 						</configuration>
