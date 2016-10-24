@@ -1,0 +1,104 @@
+{
+	"title": "json_encode is bad, and you should feel bad",
+	"subtitle": "PHP oddities",
+	"date": "1477332265268",
+	"markdown" : 
+	{ 
+		"sections": [
+			{
+				"title": "Creating JSON Payloads with PHP",
+				"contents" : 
+				[
+					{
+						"type": "paragraph",
+						"content": "As a part of a task that I'm working on, I'm creating a payload for a front end to consumer that requires me to mix and match several bits of data in order to enable the filtering of particular objects on particular attributes. While generating this payload, I attempted to use an array in PHP that used the attribute's ID as a key, and its numerical enumeration as the value. Experienced PHP developers are probably shaking their head at me right now, because I'd venture they know what is going to happen next. Sometimes, my json_encode call worked just fine. However, sometimes, I would get a flat array with only the enumeration value and no attribute ID. My first thought was that I'd hit on an edge case with so many nested layers of arrays. In order to test my theory, I worked through different json_encode scenarios and looked at the resulting values. The following is my code snippet that I used to test my scenarios."
+					},
+					{
+						"type": "code",
+						"content": "function createJSONThing($object) {\n\techo json_encode($object);\n\techo \"\\n\";\n}"
+					},
+					{
+						"type": "paragraph",
+						"content": "The first and simplest scenario is naturally:"
+					},
+					{
+						"type": "code",
+						"content": "createJSONThing([\"value\"]);\ncreateJSONThing([\"key\" => \"value\"]);"
+					},
+					{
+						"type": "paragraph",
+						"content": "This created a couple of objects and works as one would expect:"
+					},
+					{
+						"type": "code",
+						"content": "[\"value\"]\n{\"key\":\"value\"}"
+					},
+					{
+						"type": "paragraph",
+						"content": "The first json_encode just gives a flat array, and the second associative array produces traditional JSON object. After I had these two established cases, I started to nest more arrays together:"
+					},
+					{
+						"type": "code",
+						"content": "createJSONThing([0 => \"value\"]);\ncreateJSONThing([ 0 => [\"key\" => \"value\"]]);\n\n[\"value\"]\n[{\"key\":\"value\"}]"
+					},
+					{
+						"type": "paragraph",
+						"content": "Here, we get a flat array in the first case. In the second case we get a similar array, but our object properties remained intact."
+                    },
+                    {
+                        "type": "code",
+                        "content": "createJSONThing([0 => [0 => [\"key\" => \"value\"]]]);\ncreateJSONThing([0 => [0 => [0 => [\"key\" => \"value\"]]]]);\n\n[[{\"key\":\"value\"}]]\n[[[{\"key\":\"value\"}]]]"
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": "Continuing down this path, the results are still pretty much exactly what you would expect. However, the next scenario is the interesting one."
+                    },
+                    {
+                        "type": "code",
+                        "content": "Continuing down this path, the results are still pretty much exactly what you would expect. However, the next scenario is the interesting one."
+                    },
+                    {
+                        "type": "code",
+                        "content": "createJSONThing([[0 => [\"attrib\" => [0 => [\"0\" => 13]]]]]);\n\n[[{\"attrib\":[[13]]}]]"
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": "In this case, my key-value pair at the end is being reduced to a flat array. This is exactly the behavior and what I was interested in. Digging deeper into the details of json_encode gives you a better idea of why this is happening. Let's take a look at the simplest case of this peculiar behavior:"
+                    },
+                    {
+                        "type": "code",
+                        "content": "createJSONThing([0 => 1]);\n\n[1]"
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": "Here, we have a key that is pointing to a value, but the first key is 0. The same thing happens for any sequential set of keys starting from 0:"
+                    },
+                    {
+                        "type": "code",
+                        "content": "createJSONThing([0 => 1, 1 => 2]);\n\n[1,2]"
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": "However, if we start from anything other than 0, we get the output we'd expect:"
+                    },
+                    {
+                        "type": "code",
+                        "content": "createJSONThing([1 => 1]);\n\n{\"1\":1}"
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": "PHP considers any array starting with 0 to be a non-associative array. json_encode takes this to mean that it should flatten the keys out of the array as it is converted to an object. When you think about this in the frame of PHP as a language this behavior makes sense. If you think about it from an angle of creating payloads, this edge case behavior is very unfortunate. It's easy enough to work around by using the name instead of the ID as the key for my array in the payload, however, this just feels like bad behavior on the part of json_encode. I would love to see:"
+                    },
+                    {
+                        "type": "code",
+                        "content": "createJSONThing([\"0\" => 1]);\n\n{\"0\": 1}"
+                    },
+                    {
+                        "type" : "paragraph",
+                        "content": "work for json_encode, though I doubt that is a possibility. Currently, this will result in the same flat array as createJSONThing([0 => 1])."
+                    }
+				]
+			}
+		]
+	}
+}
