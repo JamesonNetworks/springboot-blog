@@ -55,10 +55,6 @@
                     },
                     {
                         "type": "code",
-                        "content": "Continuing down this path, the results are still pretty much exactly what you would expect. However, the next scenario is the interesting one."
-                    },
-                    {
-                        "type": "code",
                         "content": "createJSONThing([[0 => [\"attrib\" => [0 => [\"0\" => 13]]]]]);\n\n[[{\"attrib\":[[13]]}]]"
                     },
                     {
