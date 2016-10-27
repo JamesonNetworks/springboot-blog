@@ -1,0 +1,106 @@
+{
+	"title": "An Introduction to Git Rerere",
+	"subtitle": "A developer never forgets",
+	"date": "1477577686861",
+	"markdown" : 
+	{ 
+		"sections": [
+			{
+				"title": "Introduction",
+				"contents" : 
+				[
+					{
+						"type": "paragraph",
+						"content": "Recently I discovered a feature called rerere in git which stands for \"reuse recorded resolution.\" This is one of the more esoteric and \"hidden\" features of git that allows a developer to record the way they resolve merge conflicts, and then reuse those recorded resolutions whenever the same merge conflict is encountered again. This feature is suposedly a response to kernel developers issues with having merge commits through their feature branches prior to the branches being merged into their target branches, i.e. if you are working on a feature and the branch of origin has a bunch of new commits on it, you would get your branch up to date by merging in the changes from the origin branch. Using rerere, it is possible to remember all the merge conflicts and resolved issues from the final branch so that you can undo the merge and then continue working after testing. Finally, when you are really ready to merge it in, rerere will have remembered all your resolutions and the merge won't take duplicate work. This post will be an intro into rerere command to show how it can make your life easier. "
+					},
+					{
+						"type": "paragraph",
+						"content": "To demonstrate rerere in practice, I created a repo with one file, index.html, inside of it. This file has commits on the main branch, and some commits on a feature branch that produce a merge conflict. We'll go through the commands to both create the merge conflict and resolve that conflict. Then, we'll reset our feature branch to before the merge and continue working. Finally, when we merge for a final time, we'll see our resolutions are saved and don't require any intervention on our part. We'll also look at how to forget the rerere resolution in the event we resolved the merge incorrectly."
+					}
+				]
+			},
+            {
+                "title": "Using Rerere",
+                "contents":
+                [
+                    {
+                        "type": "paragraph",
+                        "content": "First, to enable rerere globally use the command:"
+                    },
+                    {
+                        "type": "code",
+                        "content": "git config --global rerere.enabled 1"
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": "So to start, this is an image of the repo histories:\nFor the branch master:"
+                    },
+                    {
+                        "type": "code",
+                        "content": "* d2e17ea - (HEAD -> master) Adding some content (36 minutes ago)<Brent Jameson>\r\n* f26bd05 - Initial commit (40 minutes ago)<Brent Jameson>"
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": "and for the branch conflicted_feature:"
+                    },
+                    {
+                        "type": "code",
+                        "content": "* c67a61c - (HEAD -> conflicted_feature) Changing index around (33 minutes ago)<Brent Jameson>\r\n* f26bd05 - Initial commit (36 minutes ago)<Brent Jameson>"
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": "Now we'll use 'git merge --no-ff master' to pull our conflicted resolution in:"
+                    },
+                    {
+                        "type": "code",
+                        "content": "Auto-merging index.html\r\nCONFLICT (content): Merge conflict in index.html\r\nAutomatic merge failed; fix conflicts and then commit the result."
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": "Now we run 'git mergetool' and, after resolving the conflict, save the result and commit."
+                    },
+                    {
+                        "type": "code",
+                        "content": "Recorded resolution for \'index.html\'.\r\n[conflicted_feature 041b5b8] Merge branch \'master\' into conflicted_feature"
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": "Notice that we recorded the resolution for index.html. Our branch history now looks like:"
+                    },
+                    {
+                        "type": "code",
+                        "content": "*   041b5b8 - (HEAD -> conflicted_feature) Merge branch \'master\' into conflicted_feature (39 seconds ago)<Brent Jameson>\r\n|\\\r\n| * d2e17ea - (master) Adding some content (34 minutes ago)<Brent Jameson>\r\n* | c67a61c - Changing index around (35 minutes ago)<Brent Jameson>\r\n|\/\r\n* f26bd05 - Initial commit (38 minutes ago)<Brent Jameson>"
+                    },
+                    {
+                        "type": "paragraph",
+                        "content" : "When we finish our testing and ensure everything works correctly, we can reset our branch using 'git reset --hard HEAD~1'. We are resetting back one commit off of head and essentially removing our merge. Our history becomes:"
+                    },
+                    {
+                        "type": "code",
+                        "content": "* c67a61c - (HEAD -> conflicted_feature) Changing index around (36 minutes ago)<Brent Jameson>\r\n* f26bd05 - Initial commit (39 minutes ago)<Brent Jameson>"
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": "Which is exactly what it was before the merge. Now, when we run the 'git merge --no-ff master' again, our merge resolution will automatically be applied:"
+                    },
+                    {
+                        "type": "code",
+                        "content": "Auto-merging index.html\r\nCONFLICT (content): Merge conflict in index.html\r\nResolved \'index.html\' using previous resolution.\r\nAutomatic merge failed; fix conflicts and then commit the result."
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": "This tells us that our merge conflict was resolved using a rerere resolution. If you were to look at the file in question, there are no merge markers inside of it. Instead, the file as we expected it exists with all the conflicts resolved. If we had improperly done the resolution, we could use 'git rerere forget index.html' in order to forget the resolution we had used:"
+                    },
+                    {
+                        "type": "code",
+                        "content": "Updated preimage for \'index.html\'\r\nForgot resolution for index.html"
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": "Now we will see our merge conflict markers in index.html and we'll be forced to resolve the merge again. Rerere will once again remember our new resolution and allow us to continue working."
+                    }
+                ]
+            }
+		]
+	}
+}
