@@ -71,6 +71,7 @@ if (production) {
         }),
         new CopyWebpackPlugin([
             { from: 'src/images/favicon.ico' },
+            { from: 'src/images/favicon.png' },
             { from: 'entries/', to: 'entries/'}
         ])
     ]);
