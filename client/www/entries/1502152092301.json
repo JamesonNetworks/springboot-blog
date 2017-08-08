@@ -1,0 +1,59 @@
+{
+	"title": "Working with Semantic UI",
+	"subtitle": "The best crutch for those without the eye for design",
+	"date": "1502152092301",
+	"markdown" : 
+	{ 
+		"sections": [
+			{
+				"title": "Introduction",
+				"contents" : 
+				[
+					{
+						"type": "paragraph",
+						"content": "For the last few months I've been looking for a way to revitalize my UI structure in several of my hobby projects. While researching various UI \"frameworks\", I landed on two different React-compatible UI toolkits. I'm going to work on espousing my experiences with both of these toolkits (Semantic UI and Material UI) including the good, the bad, and the ugly parts for each one. Using these toolkits, I've been able to very quickly slap a fresh coat of paint on what have been referred to as \"atrocious examples of god awful styling.\""
+					},
+					{
+						"type": "paragraph",
+						"content": "This article is going to focus on my experience with Semantic UI. I've used it to both inject a fresh look into a hobby chat app I work on, and also to update the antiquated styling of the blog which I've been neglecting for years (Magento 2 has been dominating my purview as of late, and I've had very little time to blog)."
+					}
+				]
+			},
+            {
+                "title": "What is Semantic UI?",
+                "contents": [
+                    {
+                        "type": "paragraph",
+                        "content": "Semantic UI (https:\/\/semantic-ui.com) contains the tagline: \"User Interface is the language of the web.\" We'll go into depth about how this vision is realized when we get into how to use Semantic UI, but for now you should remember that Semantic UI is essentially a gulp compiled ui toolkit that you bundle with your projects which provides a declarative way to tag elements with classes that will interact with each other in fairly predictable ways. This toolkit includes primitives (form elements), components (cards, comments), and layouts (grids, responsive stacked grids). When you pull Semantic UI into a project, you'll be provided with everything you need to handle 90% of layout and styling tasks for a website right out of the box."
+                    }
+                ]
+            },
+            {
+                "title": "How does it work?",
+                "contents": [
+                    {
+                        "type": "paragraph",
+                        "content": "Semantic UI is a package you can install (currently freezes on yarn, but there is a work around https:\/\/github.com\/Semantic-Org\/Semantic-UI\/issues\/4801). By saving the theme initially with npm install, you can then run yarn install and generate a lock file that works appropriately. It will create a folder called semantic\/ in your project which has its own 'gulp build' command that allows you to recompile the theme on variable changes (and any other changes for that matter). Once you have the package installed, you can point at the overall minified CSS file and incorporate the styles into your application."
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": "Now that you have the theme installed, you can do all kinds of awesome customization with it. Looking at the <insert theme default globals file here> you copy and paste variables you want to override into <insert theme variables here>. Then, you can change any and all colors, breakpoints, and several other pieces you would expect to be able to change. When you recompile the theme and your app, you'll see the theme changes. Check out the documentation for examples of all the cool things you can do with it!"
+                    }
+                ]
+            },
+            {
+                "title": "How is it to use",
+                "contents": [
+                    {
+                        "type": "paragraph",
+                        "content": "I found Semantic to be one of the easiest CSS frameworks I've ever used. It doesn't have confusing names like bootstrap and it mostly does what I expect. Changing text colors became a little burdensome because they don't include baked in classes for it, however, this is a design decision and ultimately makes sense when you think about it. They also have a stock inverted set of controls for any dark on light controls you might need. I found it covers most of the things I would need to use in both laying out and designing a project. I'm thrilled both with Semantic's incorporation into my project and also the quickness with which I was able to give my projects a facelift. Mad props to the team that created Semantic UI"
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": "Stay tuned for my upcoming post about my experience with Material UI (http:\/\/www.material-ui.com)."
+                    }
+                ]
+            }
+		]
+	}
+}
