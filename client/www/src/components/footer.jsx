@@ -20,7 +20,7 @@ class Footer extends React.Component {
                     <button onClick={this.onBackClick}>-- See All Articles --</button>
                 </div>
                 <div>
-                Copyright 2016 : JamesonNetworks. All Rights Reserved. See the code <a href="https://github.com/JamesonNetworks/blog" target="_blank">here</a>
+                Copyright 2017 : JamesonNetworks. All Rights Reserved. See the code <a href="https://github.com/JamesonNetworks/blog" target="_blank">here</a>
                 </div>
             </div>
         );
