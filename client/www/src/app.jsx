@@ -4,6 +4,7 @@ import Footer from './containers/footer-container.jsx';
 import Menu from './containers/menu-container.jsx';
 import Entry from './containers/entry-container.jsx';
 
+require('../semantic/dist/semantic.min.css');
 require('./app.scss');
 
 class App extends React.Component {

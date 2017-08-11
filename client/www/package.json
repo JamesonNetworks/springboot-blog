@@ -4,7 +4,7 @@
   "description": "JamesonNetworks Blog",
   "scripts": {
     "test": "mocha  --compilers js:babel-core/register",
-    "start": "node node_modules/http-server/bin/http-server -p 8888 ./pub | webpack --watch",
+    "start": "webpack --watch",
     "production": "NODE_ENV=production webpack -p"
   },
   "keywords": [],
@@ -48,6 +48,8 @@
     "redux-devtools": "^3.3.1",
     "sass-loader": "^3.2.0",
     "style-loader": "^0.13.1",
+    "svg-inline-loader": "^0.8.0",
+    "url-loader": "^0.5.9",
     "webpack": "^1.13.0",
     "webpack-dev-server": "^1.14.1",
     "webpack-livereload-plugin": "^0.8.1"

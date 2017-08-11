@@ -108,9 +108,18 @@ module.exports = {
                 loader: ExtractPlugin.extract('style', 'css!sass'),
             },
             {
+                test:   /\.css/,
+                loader: ExtractPlugin.extract('style', 'css!sass'),
+            },
+            {
                 test:   /\.html/,
                 loader: 'html',
-            }
+            },
+            {
+                test: /\.svg$/,
+                loader: 'svg-inline-loader'
+            },
+            { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
         ]
     },
     eslint: {
