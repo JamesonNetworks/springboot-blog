@@ -78,7 +78,6 @@ if (production) {
 }
 
 module.exports = {
-    debug:   !production,
     devtool: production ? 'cheap-module-source-map' : 'eval',
     entry:  [
         './src/index.jsx'
@@ -96,33 +95,33 @@ module.exports = {
             {
                 test : /\.jsx?/,
                 include : path.resolve(__dirname, 'src'),
-                loaders : ['babel']
+                loaders : ['babel-loader']
             },
             {
                 test:    /\.js/,
-                loaders:  ['babel'],
+                loaders:  ['babel-loader'],
                 include: __dirname + '/src'
             },
             {
                 test:   /\.scss/,
-                loader: ExtractPlugin.extract('style', 'css!sass'),
+                loader: 'style-loader!css-loader'
             },
             {
                 test:   /\.css/,
-                loader: ExtractPlugin.extract('style', 'css!sass'),
+                loader: 'style-loader!css-loader'
             },
+	    { 
+		test: /\.(eot|woff|woff2|ttf|png|jpe?g|gif)(\?\S*)?$/,
+	        loader: 'url-loader?limit=100000&name=[name].[ext]'
+	    },
             {
                 test:   /\.html/,
-                loader: 'html',
+                loader: 'html-loader',
             },
             {
                 test: /\.svg$/,
                 loader: 'svg-inline-loader'
-            },
-            { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
+            }
         ]
-    },
-    eslint: {
-        configFile: '.eslintrc'
     }
 };
