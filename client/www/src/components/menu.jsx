@@ -81,7 +81,7 @@ class Menu extends React.Component {
                             <div className="ui items article-list">{options}</div>
                         </div>
                         :
-                        <div className="toolbar">
+                        <div className="ui text container">
                             <h1 className="current-article button" onClick={this.titleClickHandler}>{current.title}</h1>
                         </div>
 

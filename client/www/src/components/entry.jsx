@@ -65,7 +65,7 @@ var Content = React.createClass({
                 contentComponent = <ParagraphContent content={content} date={date} />
         }
         return(
-            <div className="post-article">{contentComponent}</div>
+            <div className="ui text container">{contentComponent}</div>
         )
     }
 });
@@ -156,13 +156,11 @@ class Entry extends React.Component {
 
         let showArticleList = this.props.showArticleList;
 
-        let className = (showArticleList || loading) ? "entry hide" : "entry";
-
         let dateObj = new Date(Number.parseInt(date));
         let prettyDate = moment(dateObj).format("MMMM Do YYYY");
 
         return (
-            <div className={className}>
+            <div className="ui text container">
                 <div className="post-date">{prettyDate}</div>
                 <div className="post-date-divider"></div>
                 <div className="post-article">
