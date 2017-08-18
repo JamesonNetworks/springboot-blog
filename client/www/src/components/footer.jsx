@@ -12,13 +12,10 @@ class Footer extends React.Component {
     }
 
     render() {
-        let footerClassName = this.props.loading ? 'footer hide' : 'footer';
+        let footerClassName = this.props.loading ? 'row footer hide' : 'row footer';
 
         return (
             <div className={footerClassName}>
-                <div className="actions">
-                    <button onClick={this.onBackClick}>-- See All Articles --</button>
-                </div>
                 <div>
                 Copyright 2017 : JamesonNetworks. All Rights Reserved. See the code <a href="https://github.com/JamesonNetworks/blog" target="_blank">here</a>
                 </div>

@@ -54,7 +54,7 @@ class Menu extends React.Component {
         let current = this.props.current;
         let showArticleList = this.props.showArticleList;
 
-        let articleSelectorClassName = this.props.loading ? 'article-selector hide' : 'article-selector';
+        let articleSelectorClassName = this.props.loading ? 'row article-selector hide' : 'row article-selector';
 
         if(!current) {
             current = entries[entries.length-1];
@@ -81,9 +81,7 @@ class Menu extends React.Component {
                             <div className="ui items article-list">{options}</div>
                         </div>
                         :
-                        <div className="ui text container">
-                            <h1 className="current-article button" onClick={this.titleClickHandler}>{current.title}</h1>
-                        </div>
+                        <h1 className="ui header current-article" onClick={this.titleClickHandler}>{current.title} <a className="header see more" href="#">(See More)</a></h1>
 
                     }
                 </ReactTransitionGroup>

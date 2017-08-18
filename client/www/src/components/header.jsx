@@ -12,8 +12,11 @@ class Header extends React.Component {
 
     render() {
         return (
-            <div className="ui main text container">
-                <img onClick={this.onHeadshotClick} className="headshot" src="https://secure.gravatar.com/avatar/d9cb6cfd91d71964be0ab1bd5d2cb4ab"/>
+            <div className="row">
+                <div className="ui right floated header">
+                    <img onClick={this.onHeadshotClick} className="headshot" src="https://secure.gravatar.com/avatar/d9cb6cfd91d71964be0ab1bd5d2cb4ab"/>
+                </div>
+                <div className="ui clearing divider"></div>
             </div>
         );
     }

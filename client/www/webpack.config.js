@@ -35,27 +35,11 @@ if (production) {
         }),
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /us/),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-        // This plugin looks for similar chunks and files
-        // and merges them for better caching by the user
-        new webpack.optimize.DedupePlugin(),
-
-        // This plugins optimizes chunks and modules by
-        // how much they are used in your app
-        new webpack.optimize.OccurenceOrderPlugin(),
 
         // This plugin prevents Webpack from creating chunks
         // that would be too small to be worth loading separately
         new webpack.optimize.MinChunkSizePlugin({
             minChunkSize: 51200, // ~50kb
-        }),
-
-        // This plugin minifies all the Javascript code of the final bundle
-        new webpack.optimize.UglifyJsPlugin({
-            mangle:   true,
-            minimize: true,
-            compress: {
-                warnings: false, // Suppress uglification warnings
-            },
         }),
 
         // This plugins defines various variables that we can set to false
