@@ -1,167 +1,19 @@
-@import './var.scss';
-
-.post-field {
-    margin-bottom: 20px;
+p.post-content {
+    text-indent: 2em;
+    margin: 0em 0em 1em;
+    white-space: -moz-pre-wrap; /* Mozilla, supported since 1999 */
+    white-space: -pre-wrap; /* Opera */
+    white-space: -o-pre-wrap; /* Opera */
+    white-space: pre-wrap; /* CSS3 - Text module (Candidate Recommendation) http://www.w3.org/TR/css3-text/#white-space */
+    word-break: break-word;
 }
 
-.post-article {
-    padding-bottom: 20px;
-    text-indent: 20px;
-}
-
-.entry.hide {
-  display: none;
-}
-
-.entry {
-    line-height: 28px;
-    padding: 0 20px 20px 20px;
-    h3 {
-        font-size: 32px;
-        font-weight: normal;
-        text-align: center;
-    }
-    .post-title {
-    }
-    .post-date {
-      text-align: center;
-      color: #2a3439;
-      font-weight: 100;
-      -moz-osx-font-smoothing: antialiased;
-      -webkit-font-smoothing: antialiased;
-    }
-    .post-date-divider {
-      background: #ddd;
-      background: -webkit-gradient(linear, left top, right top, from(rgba(255,255,255,0)), color-stop(#ccc), to(rgba(255,255,255,0)));
-      background: -webkit-linear-gradient(left, rgba(255,255,255,0), #ccc, rgba(255,255,255,0));
-      background: linear-gradient(to right, rgba(255,255,255,0), #ccc, rgba(255,255,255,0));
-      height: 1px;
-      margin: 2em 0;
-    }
-    .subtitle {
-        font-weight: 700;
-        text-align: center;
-    }
-    .post-content {
-    }
-    .section-divider {
-      background: #ddd;
-      background: -webkit-gradient(linear, left top, right top, from(rgba(255,255,255,0)), color-stop(#ccc), to(rgba(255,255,255,0)));
-      background: -webkit-linear-gradient(left, rgba(255,255,255,0), #ccc, rgba(255,255,255,0));
-      background: linear-gradient(to right, rgba(255,255,255,0), #ccc, rgba(255,255,255,0));
-      height: 1px;
-      margin: 2em 0;
-    }
-    .section-divider-pad {
-        padding-bottom: 20px;
-    }
-    .prettyprint {
-        border-radius: 5px;
-        line-height: 14px;
-    }
-}
-
-.pln {
-  color: #000
-}
-@media screen {
-  .str {
-    color: #080
-  }
-  .kwd {
-    color: #008
-  }
-  .com {
-    color: #800
-  }
-  .typ {
-    color: #606
-  }
-  .lit {
-    color: #066
-  }
-  .pun,
-  .opn,
-  .clo {
-    color: #660
-  }
-  .tag {
-    color: #008
-  }
-  .atn {
-    color: #606
-  }
-  .atv {
-    color: #080
-  }
-  .dec,
-  .var {
-    color: #606
-  }
-  .fun {
-    color: red
-  }
-}
-@media print,
-projection {
-  .str {
-    color: #060
-  }
-  .kwd {
-    color: #006;
-    font-weight: bold
-  }
-  .com {
-    color: #600;
-    font-style: italic
-  }
-  .typ {
-    color: #404;
-    font-weight: bold
-  }
-  .lit {
-    color: #044
-  }
-  .pun,
-  .opn,
-  .clo {
-    color: #440
-  }
-  .tag {
-    color: #006;
-    font-weight: bold
-  }
-  .atn {
-    color: #404
-  }
-  .atv {
-    color: #060
-  }
-}
-pre.prettyprint {
-  padding: 2px;
-  border: 0;
-}
-ol.linenums {
-  margin-top: 0;
-  margin-bottom: 0;
-  padding: 0;
-}
-li.L0,
-li.L1,
-li.L2,
-li.L3,
-li.L5,
-li.L6,
-li.L7,
-li.L8 {
-  list-style-type: none
-}
-li.L1,
-li.L3,
-li.L5,
-li.L7,
-li.L9 {
-  background: #eee
+.main pre {
+    white-space: -moz-pre-wrap; /* Mozilla, supported since 1999 */
+    white-space: -pre-wrap; /* Opera */
+    white-space: -o-pre-wrap; /* Opera */
+    white-space: pre-wrap; /* CSS3 - Text module (Candidate Recommendation) http://www.w3.org/TR/css3-text/#white-space */
+    font-size: 0.7em;
+    text-overflow: ellipsis; 
 }
 
