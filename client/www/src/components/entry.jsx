@@ -158,7 +158,7 @@ class Entry extends React.Component {
         let prettyDate = moment(dateObj).format("MMMM Do YYYY");
 
         return (
-            <div className="ui two column grid">
+            <div className="ui column grid">
                 <div className="row">
                     <div className="centered column">
                         <div className="ui large header">{entry.title}</div>

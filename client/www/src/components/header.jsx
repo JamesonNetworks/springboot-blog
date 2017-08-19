@@ -10,6 +10,12 @@ class Header extends React.Component {
         this.onItemClick = (event) => {
             this.props.onBackClick();
         }
+        this.onLeftArrowClick = (event) => {
+            this.props.onLeftArrowClick();
+        }
+        this.onRightArrowClick = (event) => {
+            this.props.onRightArrowClick();
+        }
     }
     componentDidMount() {
         if(this.props.loading === true) {
@@ -33,9 +39,9 @@ class Header extends React.Component {
                     <a href="#" className="header item">
                     JamesonNetworks Blog
                     </a>
-                    <a className="ui simple item">Previous</a>
+                    <a className="ui simple item" onClick={this.onLeftArrowClick}>Previous</a>
                     <div className="right menu">
-                        <a className="ui simple item right">Next</a>
+                        <a className="ui simple item right" onClick={this.onRightArrowClick}>Next</a>
                         <div className="ui simple dropdown item">
                             Articles
                             <i className="dropdown icon"></i>

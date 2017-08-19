@@ -22,19 +22,26 @@ function blog(state = {
                 showArticleList: action.showArticleList
             })
         case GO_FORWARD_ONE:
-            for(var i = 0; i < entries.length; i++) {
+            for(let i = 0; i < entries.length; i++) {
                 if(entries[i].title === state.currentEntry.title) {
                     currentIndex = i;
                 }
+            }
+            debugger;
+            if(currentIndex === entries.length-1) {
+                return state;
             }
             return Object.assign({}, state, {
                 currentEntry: entries[currentIndex+1]
             });
         case GO_BACK_ONE:
-            for(var i = 0; i < entries.length; i++) {
+            for(let i = 0; i < entries.length; i++) {
                 if(entries[i].title === state.currentEntry.title) {
                     currentIndex = i;
                 }
+            }
+            if(currentIndex === 0) {
+                return state;
             }
             return Object.assign({}, state, {
                 currentEntry: entries[currentIndex-1]
