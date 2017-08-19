@@ -27,7 +27,6 @@ function blog(state = {
                     currentIndex = i;
                 }
             }
-            debugger;
             if(currentIndex === entries.length-1) {
                 return state;
             }

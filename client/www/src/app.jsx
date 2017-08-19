@@ -3,6 +3,7 @@ import Header from './containers/header-container.jsx';
 import Footer from './containers/footer-container.jsx';
 import Menu from './containers/menu-container.jsx';
 import Entry from './containers/entry-container.jsx';
+import Comments from './containers/comments-container.jsx';
 
 require('../semantic/dist/semantic.min.css');
 require('./app.scss');

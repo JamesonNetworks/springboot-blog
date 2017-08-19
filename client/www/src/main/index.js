@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 import blog from './blog';
+import comments from './comments';
 
 const blogGuts = combineReducers({
-    blog
+    blog,
+    comments
 })
 
 export default blogGuts
