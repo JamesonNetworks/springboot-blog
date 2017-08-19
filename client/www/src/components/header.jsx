@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import {map, sortBy} from 'lodash';
+import {map, sortBy, filter} from 'lodash';
 
 require("./header.scss");
 
@@ -15,6 +15,15 @@ class Header extends React.Component {
         }
         this.onRightArrowClick = (event) => {
             this.props.onRightArrowClick();
+        }
+        this.changeHandler = (event) => {
+            var self = this;
+            var entry_date = event.currentTarget.id;
+            var entries = this.props.entries;
+            var entry = filter(entries, (entry) => { return entry.date === entry_date; });
+
+
+            self.props.onChange(entry[0]);
         }
     }
     componentDidMount() {

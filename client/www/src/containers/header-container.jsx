@@ -7,6 +7,9 @@ const mapDispatchToProps = (dispatch) => {
         onBackClick: () => {
             dispatch(articleList());
         },
+        onChange: (entry) => {
+            dispatch(changeEntry(entry))
+        },
         onLeftArrowClick: () => {
             dispatch(goBackOne());
         },
