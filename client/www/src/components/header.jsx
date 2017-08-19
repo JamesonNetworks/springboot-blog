@@ -57,7 +57,7 @@ class Header extends React.Component {
                 );
             });
             return (
-                <div className="item" href="#">
+                <div className="ui simple dropdown item">
                     <i className="dropdown icon"></i>
                     {year.year}
                     <div className="menu">
