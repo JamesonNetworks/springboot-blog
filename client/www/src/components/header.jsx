@@ -31,7 +31,6 @@ class Header extends React.Component {
             <div className="ui fixed menu">
                 <div className="ui container">
                     <a href="#" className="header item">
-                        <img className="logo" src="https://secure.gravatar.com/avatar/d9cb6cfd91d71964be0ab1bd5d2cb4ab"/>
                     JamesonNetworks Blog
                     </a>
                     <a className="ui simple item">Previous</a>

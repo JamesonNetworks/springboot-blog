@@ -10,7 +10,7 @@ require('./app.scss');
 class App extends React.Component {
     render() {
         return (
-            <div className="ui main text container divided grid">
+            <div className="ui main text container">
                 <Header/>
                 <Entry/>
                 <Footer/>
