@@ -40,7 +40,7 @@ var ParagraphContent = React.createClass({
     render: function() {
         var content = this.props.content;
         return (
-            <div className="post-content">{content.content}</div>
+            <p className="post-content">{content.content}</p>
         )
     }
 });
@@ -53,20 +53,17 @@ var Content = React.createClass({
         var contentComponent;
         switch(content.type) {
             case "picture":
-                contentComponent = <PictureContent content={content} date={date} />
+                return <PictureContent content={content} date={date} />
                 break;
             case "code":
-                contentComponent = <CodeContent content={content} date={date} />
+                return <CodeContent content={content} date={date} />
                 break;
             case "quote":
-                contentComponent = <QuoteContent content={content} date={date} />
+                return <QuoteContent content={content} date={date} />
                 break;
             default:
-                contentComponent = <ParagraphContent content={content} date={date} />
+                return <ParagraphContent content={content} date={date} />
         }
-        return(
-            <div className="post-article">{contentComponent}</div>
-        )
     }
 });
 
@@ -84,8 +81,9 @@ var Section = React.createClass({
         }
         return (
             <div>
+                <div className="ui divider section-divider"></div>
                 <div className="section-title>"><h3>{section.title}</h3></div>
-                <div className="section-divider"></div>
+                <div className="ui divider section-divider"></div>
                 <div className="section-divider-pad"></div>
                 {articleContents}
             </div>
@@ -156,24 +154,47 @@ class Entry extends React.Component {
 
         let showArticleList = this.props.showArticleList;
 
-        let className = (showArticleList || loading) ? "entry hide" : "entry";
-
         let dateObj = new Date(Number.parseInt(date));
         let prettyDate = moment(dateObj).format("MMMM Do YYYY");
 
         return (
-            <div className={className}>
-                <div className="post-date">{prettyDate}</div>
-                <div className="post-date-divider"></div>
-                <div className="post-article">
-                    <div className="post-field">
-                        <div className="subtitle">{entry.subtitle}</div>
+            <div className="ui two column divided grid">
+                <div className="row">
+                    <div className="column">
+                        <div className="ui large header article-header">{entry.title}</div>
                     </div>
+                    <div className="column blog-header">
+						<div className="ui cards">
+							<div className="card">
+								<div className="content">
+									<div className="header">
+										Brent Jameson
+                                        <img className="ui floated right avatar image" src="https://secure.gravatar.com/avatar/d9cb6cfd91d71964be0ab1bd5d2cb4ab"/>
+									</div>
+									<div className="meta">
+										Software Engineer
+									</div>
+								</div>
+					        </div>	
+						</div>
+					</div>
+				</div>
+                <div className="row">
+                    <div className="ui centered column">
+                        <div className="ui small header centered">{prettyDate}</div>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="ui small header subtitle">{entry.subtitle}</div>
+                    <div className="ui divider"></div>
+                </div>
+                <div className="row">
                     {articleSections}
+                    <div className="ui divider"></div>
                 </div>
             </div>
-        );
-    }
+	);
+}
 }
 
 export default Entry;

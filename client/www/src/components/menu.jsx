@@ -36,18 +36,15 @@ class Menu extends React.Component {
         }
     }
     componentWillAppear(callback) {
-        debugger;
         const el = findDOMNode(this);
         gsap.TweenMax.fromTo(el, 0.3, {y: 100, opacity: 0}, {y: 0, opacity: 1, onComplete: callback});
     }
     componentWillEnter (callback) {
-        debugger;
         const el = findDOMNode(this);
         gsap.TweenMax.fromTo(el, 0.3, {y: 100, opacity: 0}, {y: 0, opacity: 1, onComplete: callback});
     }
 
     componentWillLeave (callback) {
-        debugger;
         const el = findDOMNode(this);
         gsap.TweenMax.fromTo(el, 0.3, {y: 0, opacity: 1}, {y: -100, opacity: 0, onComplete: callback});
     }
@@ -57,7 +54,7 @@ class Menu extends React.Component {
         let current = this.props.current;
         let showArticleList = this.props.showArticleList;
 
-        let articleSelectorClassName = this.props.loading ? 'article-selector hide' : 'article-selector';
+        let articleSelectorClassName = this.props.loading ? 'row article-selector hide' : 'row article-selector';
 
         if(!current) {
             current = entries[entries.length-1];
@@ -68,7 +65,7 @@ class Menu extends React.Component {
         let options = map(sortBy(entries, function(entry) { return Date.now() - entry.date }), (entry) => {
             let date = new Date(Number.parseInt(entry.date));
             let prettyDate = moment(date).format("MMM Do YYYY");
-            return <li className="button" onClick={this.changeHandler} key={entry.date} id={entry.date}><div className="title">{entry.title}</div><div className="date">{prettyDate}</div></li>
+            return <div className="item" onClick={this.changeHandler} key={entry.date} id={entry.date}><div className="content"><div className="header">{entry.title}</div><div className="meta">{prettyDate}</div></div></div>
         });
         return (
             <div className={articleSelectorClassName}>
@@ -81,12 +78,10 @@ class Menu extends React.Component {
                         <div className="articles">
                             <h1 className="current-article">Brent Jameson's Blog</h1>
                             <p>Ruminations of a 30 something developer. I've mostly worked in web technologies, from C# to Coffeescript to PHP. I've moved from front end developer to back end developer and finally work as a full stack developer, solving any and all problems that come my way.</p>
-                            <ul className="article-list">{options}</ul>
+                            <div className="ui items article-list">{options}</div>
                         </div>
                         :
-                        <div className="toolbar">
-                            <h1 className="current-article button" onClick={this.titleClickHandler}>{current.title}</h1>
-                        </div>
+                        <h1 className="ui header current-article" onClick={this.titleClickHandler}>{current.title} <a className="header see more" href="#">(See More)</a></h1>
 
                     }
                 </ReactTransitionGroup>

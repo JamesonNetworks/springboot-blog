@@ -35,27 +35,11 @@ if (production) {
         }),
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /us/),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-        // This plugin looks for similar chunks and files
-        // and merges them for better caching by the user
-        new webpack.optimize.DedupePlugin(),
-
-        // This plugins optimizes chunks and modules by
-        // how much they are used in your app
-        new webpack.optimize.OccurenceOrderPlugin(),
 
         // This plugin prevents Webpack from creating chunks
         // that would be too small to be worth loading separately
         new webpack.optimize.MinChunkSizePlugin({
             minChunkSize: 51200, // ~50kb
-        }),
-
-        // This plugin minifies all the Javascript code of the final bundle
-        new webpack.optimize.UglifyJsPlugin({
-            mangle:   true,
-            minimize: true,
-            compress: {
-                warnings: false, // Suppress uglification warnings
-            },
         }),
 
         // This plugins defines various variables that we can set to false
@@ -78,7 +62,6 @@ if (production) {
 }
 
 module.exports = {
-    debug:   !production,
     devtool: production ? 'cheap-module-source-map' : 'eval',
     entry:  [
         './src/index.jsx'
@@ -96,24 +79,33 @@ module.exports = {
             {
                 test : /\.jsx?/,
                 include : path.resolve(__dirname, 'src'),
-                loaders : ['babel']
+                loaders : ['babel-loader']
             },
             {
                 test:    /\.js/,
-                loaders:  ['babel'],
+                loaders:  ['babel-loader'],
                 include: __dirname + '/src'
             },
             {
                 test:   /\.scss/,
-                loader: ExtractPlugin.extract('style', 'css!sass'),
+                loader: 'style-loader!css-loader'
             },
             {
+                test:   /\.css/,
+                loader: 'style-loader!css-loader'
+            },
+	    { 
+		test: /\.(eot|woff|woff2|ttf|png|jpe?g|gif)(\?\S*)?$/,
+	        loader: 'url-loader?limit=100000&name=[name].[ext]'
+	    },
+            {
                 test:   /\.html/,
-                loader: 'html',
+                loader: 'html-loader',
+            },
+            {
+                test: /\.svg$/,
+                loader: 'svg-inline-loader'
             }
         ]
-    },
-    eslint: {
-        configFile: '.eslintrc'
     }
 };
