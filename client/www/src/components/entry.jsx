@@ -163,7 +163,7 @@ class Entry extends React.Component {
                     <div className="column">
                         <div className="ui large header article-header">{entry.title}</div>
                     </div>
-                    <div className="column">
+                    <div className="column blog-header">
 						<div className="ui cards">
 							<div className="card">
 								<div className="content">
@@ -185,7 +185,6 @@ class Entry extends React.Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="ui divider"></div>
                     <div className="ui small header subtitle">{entry.subtitle}</div>
                     <div className="ui divider"></div>
                 </div>
