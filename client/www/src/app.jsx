@@ -12,7 +12,6 @@ class App extends React.Component {
         return (
             <div className="ui main text container divided grid">
                 <Header/>
-                <Menu/>
                 <Entry/>
                 <Footer/>
             </div>

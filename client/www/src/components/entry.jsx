@@ -158,15 +158,20 @@ class Entry extends React.Component {
         let prettyDate = moment(dateObj).format("MMMM Do YYYY");
 
         return (
-            <div className="row">
-                <div className="post-date">{prettyDate}</div>
-                <div className="post-date-divider"></div>
-                <div className="post-article">
-                    <div className="post-field">
-                        <div className="subtitle">{entry.subtitle}</div>
+            <div>
+                <div className="row">
+                    <div className="ui large header">{entry.title}</div>
+                </div>
+                <div className="row">
+                    <div className="ui small header">{prettyDate}</div>
+                    <div className="ui divider"></div>
+                    <div className="post-article">
+                        <div className="post-field">
+                            <div className="subtitle">{entry.subtitle}</div>
+                        </div>
+                        {articleSections}
+                        <div className="ui divider"></div>
                     </div>
-                    {articleSections}
-                    <div className="ui divider section-divider"></div>
                 </div>
             </div>
         );

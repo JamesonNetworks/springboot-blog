@@ -1,22 +1,51 @@
 import React from 'react';
+import moment from 'moment';
+import {map, sortBy} from 'lodash';
 
 require("./header.scss");
 
 class Header extends React.Component {
     constructor(props) {
         super(props);
-        this.onHeadshotClick = (event) => {
+        this.onItemClick = (event) => {
             this.props.onBackClick();
         }
     }
-
+    componentDidMount() {
+        if(this.props.loading === true) {
+            this.props.onInitialLoad();
+        }
+    }
     render() {
+        let entries = this.props.entries;
+        let options = map(sortBy(entries, function(entry) { return Date.now() - entry.date }), (entry) => {
+            let date = new Date(Number.parseInt(entry.date));
+            let prettyDate = moment(date).format("MMM Do YYYY");
+            return ( 
+                <a className="item" href="#" onClick={this.changeHandler} key={entry.date} id={entry.date}>
+                    {entry.title}
+                </a>
+            )
+        });
         return (
-            <div className="row">
-                <div className="ui right floated header">
-                    <img onClick={this.onHeadshotClick} className="headshot" src="https://secure.gravatar.com/avatar/d9cb6cfd91d71964be0ab1bd5d2cb4ab"/>
+            <div className="ui fixed menu">
+                <div className="ui container">
+                    <a href="#" className="header item">
+                        <img className="logo" src="https://secure.gravatar.com/avatar/d9cb6cfd91d71964be0ab1bd5d2cb4ab"/>
+                    JamesonNetworks Blog
+                    </a>
+                    <a className="ui simple item">Previous</a>
+                    <div className="right menu">
+                        <a className="ui simple item right">Next</a>
+                        <div className="ui simple dropdown item">
+                            Articles
+                            <i className="dropdown icon"></i>
+                            <div className="menu">
+                                {options}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className="ui clearing divider"></div>
             </div>
         );
     }

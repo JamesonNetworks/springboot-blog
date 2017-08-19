@@ -1,18 +1,24 @@
 import { connect } from 'react-redux'
 import Header from '../components/header.jsx';
-import {articleList} from '../main/actions';
+import {fetchEntries, changeEntry, goBackOne, goForwardOne, articleList} from '../main/actions';
 
 const mapDispatchToProps = (dispatch) => {
     return {
         onBackClick: () => {
             dispatch(articleList());
+        },
+        onInitialLoad: () => {
+            dispatch(fetchEntries());
         }
     }
 };
 
 const mapStateToProps = (state) => {
     return {
-        loading: state.blog.loading
+        entries: state.blog.entries,
+        loading: state.blog.loading,
+        current: state.blog.currentEntry,
+        showArticleList: state.blog.showArticleList
     }
 };
 
