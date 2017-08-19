@@ -158,29 +158,44 @@ class Entry extends React.Component {
         let prettyDate = moment(dateObj).format("MMMM Do YYYY");
 
         return (
-            <div className="ui column grid">
+            <div className="ui two column divided grid">
                 <div className="row">
-                    <div className="centered column">
-                        <div className="ui large header">{entry.title}</div>
+                    <div className="column">
+                        <div className="ui large header article-header">{entry.title}</div>
+                    </div>
+                    <div className="column">
+						<div className="ui cards">
+							<div className="card">
+								<div className="content">
+									<div className="header">
+										Brent Jameson
+                                        <img className="ui floated right avatar image" src="https://secure.gravatar.com/avatar/d9cb6cfd91d71964be0ab1bd5d2cb4ab"/>
+									</div>
+									<div className="meta">
+										Software Engineer
+									</div>
+								</div>
+					        </div>	
+						</div>
+					</div>
+				</div>
+                <div className="row">
+                    <div className="ui centered column">
+                        <div className="ui small header centered">{prettyDate}</div>
                     </div>
                 </div>
                 <div className="row">
-					<div className="ui centered column">
-						<div className="ui small header centered">{prettyDate}</div>
-					</div>
-				</div>
-				<div className="row">
-					<div className="ui divider"></div>
-					<div className="ui small header subtitle">{entry.subtitle}</div>
-					<div className="ui divider"></div>
-				</div>
-				<div className="row">
-					{articleSections}
-					<div className="ui divider"></div>
-				</div>
+                    <div className="ui divider"></div>
+                    <div className="ui small header subtitle">{entry.subtitle}</div>
+                    <div className="ui divider"></div>
+                </div>
+                <div className="row">
+                    {articleSections}
+                    <div className="ui divider"></div>
+                </div>
             </div>
-        );
-    }
+	);
+}
 }
 
 export default Entry;
