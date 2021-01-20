@@ -14,7 +14,7 @@
     "babel-preset-react": "^6.5.0",
     "classnames": "^2.2.3",
     "es6-promise": "^4.1.1",
-    "gsap": "^1.19.0",
+    "gsap": "^3.6.0",
     "http-server": "^0.10.0",
     "isomorphic-fetch": "^2.2.1",
     "linkifyjs": "^2.0.3",
